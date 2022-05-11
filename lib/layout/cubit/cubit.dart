@@ -19,6 +19,8 @@ class HomeCubit extends Cubit<HomeStates> {
   static HomeCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
 
+
+
   List<Widget> bottomScreens = [
     CasesScreen(),
     CateogriesScreen(),
@@ -34,6 +36,9 @@ class HomeCubit extends Cubit<HomeStates> {
   HomeModel? homeModel;
   Map<int, bool> favorites = {};
 
+  
+  dynamic price;
+
   void getHomeData() {
     emit(HomeLoadingHomeDataState());
     DioHelper.getData(
@@ -42,7 +47,7 @@ class HomeCubit extends Cubit<HomeStates> {
     ).then((value) {
       homeModel = HomeModel.fromJson(value.data);
 
-      // print(homeModel!.data.products[0].image);
+
       homeModel!.data.products.forEach((element) {
         favorites.addAll({element.id: element.inFavorites});
       });

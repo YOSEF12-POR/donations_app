@@ -1,10 +1,7 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
-import 'package:donations_app/modules/login/login_screen.dart';
 import 'package:donations_app/modules/search/search_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
-import 'package:donations_app/shared/network/local/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +24,9 @@ class HomeLayout extends StatelessWidget {
                   },
                   icon: Icon(Icons.search))
             ],
+            
           ),
+          // drawer: AppDrawer(),//---------------------
           body: cubit.bottomScreens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
               
