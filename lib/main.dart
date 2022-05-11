@@ -49,19 +49,19 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (BuildContext context) => HomeCubit()
               ..getHomeData()
-              ..getGategoryData()..getFavorites()
+              ..getGategoryData()..getFavorites()..getUserData()
              )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        Locale('ar', 'AE'), // English, no country code
-      ],
+      //   localizationsDelegates: [
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      //   GlobalCupertinoLocalizations.delegate,
+      // ],
+      // supportedLocales: [
+      //   Locale('ar', 'AE'), // English, no country code
+      // ],
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
           appBarTheme: const AppBarTheme(

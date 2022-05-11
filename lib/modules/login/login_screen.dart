@@ -4,6 +4,7 @@ import 'package:donations_app/modules/login/cubit/cubit.dart';
 import 'package:donations_app/modules/login/cubit/states.dart';
 import 'package:donations_app/modules/register/register_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
+import 'package:donations_app/shared/components/constants.dart';
 import 'package:donations_app/shared/network/local/cache_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,21 +26,19 @@ class LoginScreen extends StatelessWidget {
               print(state.lgoinModel.message);
               print(state.lgoinModel.data!.token);
 
-              CacheHelper.saveData(key: 'token', value: state.lgoinModel.data!.token).then((value) {
-
+              CacheHelper.saveData(
+                      key: 'token', value: state.lgoinModel.data!.token)
+                  .then((value) {
+                    token = state.lgoinModel.data!.token;
                 navigateAndFinish(context, HomeLayout());
-                
               });
-                showToast(text: state.lgoinModel.message!,
-                 state: ToastStates.SUCCESS);
-          
-            }else
-              {
-                print(state.lgoinModel.message);
-                showToast(text: state.lgoinModel.message!,
-                 state: ToastStates.ERROR);
-             
-              }
+              showToast(
+                  text: state.lgoinModel.message!, state: ToastStates.SUCCESS);
+            } else {
+              print(state.lgoinModel.message);
+              showToast(
+                  text: state.lgoinModel.message!, state: ToastStates.ERROR);
+            }
           }
         },
         builder: (context, state) {

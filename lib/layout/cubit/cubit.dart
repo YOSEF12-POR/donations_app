@@ -3,6 +3,7 @@ import 'package:donations_app/models/categories_model.dart';
 import 'package:donations_app/models/change_favorites_model.dart';
 import 'package:donations_app/models/favorites_model.dart';
 import 'package:donations_app/models/home_model.dart';
+import 'package:donations_app/models/login_model.dart';
 import 'package:donations_app/modules/cases/cases_screen.dart';
 import 'package:donations_app/modules/cateogries/cateogries_screen.dart';
 import 'package:donations_app/modules/favorites/favorites_screen.dart';
@@ -36,8 +37,7 @@ class HomeCubit extends Cubit<HomeStates> {
   HomeModel? homeModel;
   Map<int, bool> favorites = {};
 
-  
-  dynamic price;
+  // dynamic price;
 
   void getHomeData() {
     emit(HomeLoadingHomeDataState());
@@ -89,7 +89,7 @@ class HomeCubit extends Cubit<HomeStates> {
       token: token,
     ).then((value) {
       changeFavoritesModel = ChangeFavoritesModel.fromJson(value.data);
-      print(value.data);
+      // print(value.data);
 
       if (!changeFavoritesModel!.status!) {
         favorites[caseId] = !favorites[caseId]!;
@@ -105,8 +105,7 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   FavoritesModel? favoritesModel;
-
-  void getFavorites() {
+    void getFavorites() {
     emit(HomeLoadingGetFavoritesState());
 
     DioHelper.getData(
@@ -114,11 +113,30 @@ class HomeCubit extends Cubit<HomeStates> {
       token: token,
     ).then((value) {
       favoritesModel = FavoritesModel.fromJson(value.data);
-      printFullText(value.data.toString());
+      // printFullText(value.data.toString());
       emit(HomeSuccessGetFavoritesState());
     }).catchError((error) {
       print(error.toString());
       emit(HomeErrorGetFavoritesState());
+    });
+  }
+
+
+
+  LoginModel? userModel;
+    void getUserData() {
+    emit(HomeLoadingUserDataState());
+
+    DioHelper.getData(
+      url: PROFILE,
+      token: token,
+    ).then((value) {
+      userModel = LoginModel.fromJson(value.data);
+      print(userModel!.data!.name);
+      emit(HomeSuccessUserDataState(userModel!));
+    }).catchError((error) {
+      print(error.toString());
+      emit(HomeErrorUserDataState());
     });
   }
 }
