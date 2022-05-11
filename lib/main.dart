@@ -1,8 +1,10 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/home.dart';
 import 'package:donations_app/layout/mainpage.dart';
 import 'package:donations_app/modules/login/login_screen.dart';
 import 'package:donations_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:donations_app/modules/splash_screen/splash_screen.dart';
 import 'package:donations_app/shared/components/constants.dart';
 import 'package:donations_app/shared/network/local/cache_helper.dart';
 import 'package:donations_app/shared/network/remote/dio_helper.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:splash_screen_view/SplashScreenView.dart';
 
 void main() async {
   WidgetsFlutterBinding
@@ -34,12 +37,12 @@ void main() async {
   print(onBoarding);
   print(token);
 
-  runApp(MyApp(starWidget: widget));
+  runApp(MyApp(startWidget: widget));
 }
 
 class MyApp extends StatelessWidget {
-  Widget? starWidget;
-  MyApp({this.starWidget});
+  Widget? startWidget;
+  MyApp({this.startWidget});
 
   // This widget is the root of your application.
   @override
@@ -54,6 +57,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        
       //   localizationsDelegates: [
       //   GlobalMaterialLocalizations.delegate,
       //   GlobalWidgetsLocalizations.delegate,
@@ -105,8 +109,25 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Jannah',
           primarySwatch: defaultColor,
         ),
-        home: starWidget,
+        home: SplashScreenView(
+                navigateRoute: startWidget,
+                duration: 5000,
+                imageSize: 190,
+                imageSrc: "assets/images/logo.png",
+                text: "Amali App",
+                textType: TextType.ColorizeAnimationText,
+                textStyle: const TextStyle(
+                  fontSize: 40.0,
+                ),
+                colors: const [
+                  Colors.yellowAccent,
+                  defaultColor, 
+                 Colors.yellowAccent,
+                 defaultColor, 
+                  
+                ],
       ),
+    )
     );
   }
 }

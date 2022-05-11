@@ -28,8 +28,14 @@ class HomeErrorGetFavoritesState extends HomeStates{}
 class HomeLoadingUserDataState extends HomeStates{}
 class HomeSuccessUserDataState extends HomeStates{
  final  LoginModel loginModel;
-
   HomeSuccessUserDataState(this.loginModel);
-
 }
 class HomeErrorUserDataState extends HomeStates{}
+
+
+class HomeLoadingUpDateUserDataState extends HomeStates{}
+class HomeSuccessUpDateUserDataState extends HomeStates{
+ final  LoginModel loginModel;
+  HomeSuccessUpDateUserDataState(this.loginModel);
+}
+class HomeErrorUpDateUserDataState extends HomeStates{}

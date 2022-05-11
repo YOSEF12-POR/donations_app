@@ -20,8 +20,6 @@ class HomeCubit extends Cubit<HomeStates> {
   static HomeCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
 
-
-
   List<Widget> bottomScreens = [
     CasesScreen(),
     CateogriesScreen(),
@@ -46,7 +44,6 @@ class HomeCubit extends Cubit<HomeStates> {
       token: token,
     ).then((value) {
       homeModel = HomeModel.fromJson(value.data);
-
 
       homeModel!.data.products.forEach((element) {
         favorites.addAll({element.id: element.inFavorites});
@@ -105,7 +102,7 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   FavoritesModel? favoritesModel;
-    void getFavorites() {
+  void getFavorites() {
     emit(HomeLoadingGetFavoritesState());
 
     DioHelper.getData(
@@ -121,10 +118,9 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-
-
   LoginModel? userModel;
-    void getUserData() {
+
+  void getUserData() {
     emit(HomeLoadingUserDataState());
 
     DioHelper.getData(
@@ -137,6 +133,28 @@ class HomeCubit extends Cubit<HomeStates> {
     }).catchError((error) {
       print(error.toString());
       emit(HomeErrorUserDataState());
+    });
+  }
+
+  void updateUserData({
+    required String name,
+    required String email,
+    required String phone,
+  }) {
+    emit(HomeLoadingUpDateUserDataState());
+
+    DioHelper.putData(url: UPDATE_PROFILE, token: token, data: {
+        'name': name,
+        'email': email,
+        'phone': phone,
+
+    }).then((value) {
+      userModel = LoginModel.fromJson(value.data);
+      print(userModel!.data!.name);
+      emit(HomeSuccessUpDateUserDataState(userModel!));
+    }).catchError((error) {
+      print(error.toString());
+      emit(HomeErrorUpDateUserDataState());
     });
   }
 }

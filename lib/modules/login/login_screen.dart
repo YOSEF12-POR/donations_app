@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
               CacheHelper.saveData(
                       key: 'token', value: state.lgoinModel.data!.token)
                   .then((value) {
-                    token = state.lgoinModel.data!.token;
+                token = state.lgoinModel.data!.token;
                 navigateAndFinish(context, HomeLayout());
               });
               showToast(
@@ -46,6 +46,7 @@ class LoginScreen extends StatelessWidget {
             appBar: AppBar(),
             body: Center(
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Form(
@@ -53,12 +54,18 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Center(
+                          child: Container(
+                  height: 190,
+                  child: Image.asset('assets/images/logo.png'),
+                ),
+                        ),
                         Text(
                           'LOGIN',
                           style: Theme.of(context).textTheme.headline5,
                         ),
                         Text(
-                          'Login now to browse our hot offers',
+                          'Login now and contribute with us',
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!

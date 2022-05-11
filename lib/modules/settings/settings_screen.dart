@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsScreen extends StatelessWidget {
   // const SettingsScreen({ Key? key }) : super(key: key);
+  var formKey = GlobalKey<FormState>();
 
   var nameContorller = TextEditingController();
   var emailContorller = TextEditingController();
@@ -15,74 +16,94 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {
-        if (state is HomeSuccessUserDataState) {
-          // nameContorller.text = state.loginModel.data!.name!;
-          // emailContorller.text = state.loginModel.data!.email!;
-          // phoneContorller.text = state.loginModel.data!.phone!;
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
-        var model = HomeCubit.get(context).userModel!;
-
-        nameContorller.text = model.data!.name!;
+           var model = HomeCubit.get(context).userModel;
+             nameContorller.text = model!.data!.name!;
         emailContorller.text = model.data!.email!;
         phoneContorller.text = model.data!.phone!;
-        return ConditionalBuilder(
-          condition: HomeCubit.get(context).userModel != null,
-          builder: (context) => Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                defaultFormFiled(
-                    controller: nameContorller,
-                    type: TextInputType.name,
-                    validate: (value) {
-                      if (value.isEmpty) {
-                        return 'name must not be empty';
-                      }
-                      return null;
-                    },
-                    label: 'Name',
-                    prefix: Icons.person),
-                SizedBox(
-                  height: 20.0,
+        return Center(
+          child: SingleChildScrollView(
+            child: ConditionalBuilder(
+              condition: HomeCubit.get(context).userModel != null,
+              builder: (context) => Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      if (state is HomeLoadingUpDateUserDataState)
+                        LinearProgressIndicator(),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      defaultFormFiled(
+                          controller: nameContorller,
+                          type: TextInputType.name,
+                          validate: (value) {
+                            if (value.isEmpty) {
+                              return 'name must not be empty';
+                            }
+                            return null;
+                          },
+                          label: 'Name',
+                          prefix: Icons.person),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      defaultFormFiled(
+                          controller: emailContorller,
+                          type: TextInputType.emailAddress,
+                          validate: (value) {
+                            if (value.isEmpty) {
+                              return 'Email Address must not be empty';
+                            }
+                            return null;
+                          },
+                          label: 'Email Address',
+                          prefix: Icons.email),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      defaultFormFiled(
+                          controller: phoneContorller,
+                          type: TextInputType.phone,
+                          validate: (value) {
+                            if (value.isEmpty) {
+                              return 'phone must not be empty';
+                            }
+                            return null;
+                          },
+                          label: 'Phone Number',
+                          prefix: Icons.phone),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      defaultButton(
+                          text: 'Up Date',
+                          function: () {
+                            if (formKey.currentState!.validate()) {
+                              HomeCubit.get(context).updateUserData(
+                                  name: nameContorller.text,
+                                  email: emailContorller.text,
+                                  phone: phoneContorller.text);
+                            }
+                          }),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      defaultButton(
+                          text: 'Logout',
+                          function: () {
+                            signOut(context);
+                          })
+                    ],
+                  ),
                 ),
-                defaultFormFiled(
-                    controller: emailContorller,
-                    type: TextInputType.emailAddress,
-                    validate: (value) {
-                      if (value.isEmpty) {
-                        return 'Email Address must not be empty';
-                      }
-                      return null;
-                    },
-                    label: 'Email Address',
-                    prefix: Icons.email),
-                SizedBox(
-                  height: 20.0,
-                ),
-                defaultFormFiled(
-                    controller: phoneContorller,
-                    type: TextInputType.phone,
-                    validate: (value) {
-                      if (value.isEmpty) {
-                        return 'phone must not be empty';
-                      }
-                      return null;
-                    },
-                    label: 'Phone Number',
-                    prefix: Icons.phone),
-                     SizedBox(
-                  height: 20.0,
-                ),
-                defaultButton(text:  'Logout', function: (){
-                  signOut(context);
-                })
-              ],
+              ),
+              fallback: (context) => Center(child: CircularProgressIndicator()),
             ),
           ),
-          fallback: (context) => Center(child: CircularProgressIndicator()),
         );
       },
     );

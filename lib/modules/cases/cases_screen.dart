@@ -104,18 +104,21 @@ class CasesScreen extends StatelessWidget {
               height: 20.0,
             ),
             Container(
-              color: Colors.grey[300],
-              child: GridView.count(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 1,
-                mainAxisSpacing: 1.0,
-                crossAxisSpacing: 1.0,
-                childAspectRatio: 1 / 1.6,
-                children: List.generate(
-                  model.data.products.length,
-                  (index) =>
-                      buildGridCases(model.data.products[index], context),
+              // color: Colors.grey[300],
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: GridView.count(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  crossAxisCount: 1,
+                  mainAxisSpacing: 1.0,
+                  crossAxisSpacing: 1.0,
+                  childAspectRatio: 1 / 1.2,
+                  children: List.generate(
+                    model.data.products.length,
+                    (index) =>
+                        buildGridCases(model.data.products[index], context),
+                  ),
                 ),
               ),
             ),
