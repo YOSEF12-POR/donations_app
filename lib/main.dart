@@ -15,6 +15,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
+
+// git add .
+// git push origin master
+
 void main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // بيتاكد انه كل حاجه في هذه الميثود اشتغلت وخلصت بعدين بيشغل التطبيق
