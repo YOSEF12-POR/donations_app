@@ -233,7 +233,7 @@ Widget buildListfCases(model,context , {bool isoldprice = true, } ) =>  Padding(
                               HomeCubit.get(context).favorites[model.id]!
                                ? defaultColor : Colors.grey,
                           child: Icon(
-                            Icons.favorite_border,
+                            Icons.wallet_giftcard_rounded,
                             size: 22.0,
                             color: Colors.white,
                           ),

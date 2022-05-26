@@ -62,16 +62,16 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         
-      //   localizationsDelegates: [
-      //   GlobalMaterialLocalizations.delegate,
-      //   GlobalWidgetsLocalizations.delegate,
-      //   GlobalCupertinoLocalizations.delegate,
-      // ],
-      // supportedLocales: [
-      //   Locale('ar', 'AE'), // English, no country code
-      // ],
+        localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('ar', 'AE'), // English, no country code
+      ],
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
+          scaffoldBackgroundColor: Colors.grey[100],
           appBarTheme: const AppBarTheme(
             titleSpacing: 20.0,
             systemOverlayStyle: SystemUiOverlayStyle(
@@ -118,10 +118,12 @@ class MyApp extends StatelessWidget {
                 duration: 5000,
                 imageSize: 190,
                 imageSrc: "assets/images/logo.png",
-                text: "Amali App",
+                text: "مكارم الخير",
                 textType: TextType.ColorizeAnimationText,
                 textStyle: const TextStyle(
                   fontSize: 40.0,
+                  fontFamily: 'Jannah',
+                  fontWeight: FontWeight.bold
                 ),
                 colors: const [
                   Colors.yellowAccent,

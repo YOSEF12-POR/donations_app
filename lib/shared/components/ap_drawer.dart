@@ -1,3 +1,4 @@
+import 'package:donations_app/modules/cases_de/cases_de.dart';
 import 'package:donations_app/modules/favorites/favorites_screen.dart';
 import 'package:donations_app/modules/settings/settings_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
@@ -39,7 +40,7 @@ class AppDrawer extends StatelessWidget {
             height: 20,
           ),
           buildListTile('Favorites', Icons.card_travel, () {
-           navigateTo(context, SettingsScreen());
+           navigateTo(context, CasesDe());
           }),
 
 

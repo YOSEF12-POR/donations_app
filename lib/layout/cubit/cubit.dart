@@ -76,7 +76,7 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   ChangeFavoritesModel? changeFavoritesModel;
-  void changeFavorites(int caseId) {
+  void changeFavorites(int caseId,) {
     favorites[caseId] = !favorites[caseId]!;
     emit(HomeChangeFavoritesState());
 
@@ -108,15 +108,18 @@ class HomeCubit extends Cubit<HomeStates> {
     DioHelper.getData(
       url: FAVORITES,
       token: token,
+
+      
+    
     ).then((value) {
       favoritesModel = FavoritesModel.fromJson(value.data);
-      // printFullText(value.data.toString());
       emit(HomeSuccessGetFavoritesState());
     }).catchError((error) {
       print(error.toString());
       emit(HomeErrorGetFavoritesState());
     });
   }
+
 
   LoginModel? userModel;
 

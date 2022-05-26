@@ -51,6 +51,7 @@ class FavoritesData {
 
   FavoritesData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    
     product = Product.fromJson(json['product']);
   }
 }

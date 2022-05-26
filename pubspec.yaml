@@ -51,6 +51,7 @@ dependencies:
   percent_indicator: ^4.0.1
   animated_splash_screen: ^1.2.0
   splash_screen_view: ^3.0.0
+  device_info_plus: ^3.2.3
   
   flutter_localizations: # Add this line
     sdk: flutter        

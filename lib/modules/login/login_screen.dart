@@ -3,6 +3,7 @@ import 'package:donations_app/layout/home.dart';
 import 'package:donations_app/modules/login/cubit/cubit.dart';
 import 'package:donations_app/modules/login/cubit/states.dart';
 import 'package:donations_app/modules/register/register_screen.dart';
+import 'package:donations_app/shared/components/ap_drawer.dart';
 import 'package:donations_app/shared/components/componets.dart';
 import 'package:donations_app/shared/components/constants.dart';
 import 'package:donations_app/shared/network/local/cache_helper.dart';
@@ -44,6 +45,7 @@ class LoginScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),
+            // drawer: AppDrawer(),
             body: Center(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
