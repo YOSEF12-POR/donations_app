@@ -1,4 +1,4 @@
-import 'package:donations_app/models/login_model.dart';
+import 'package:donations_app/models/login_model/login_model.dart';
 import 'package:donations_app/modules/register/cubit/states.dart';
 import 'package:donations_app/shared/network/end_points.dart';
 import 'package:donations_app/shared/network/remote/dio_helper.dart';

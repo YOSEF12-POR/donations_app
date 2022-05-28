@@ -15,6 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 class LoginScreen extends StatelessWidget {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  var device_nameController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -90,6 +91,21 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 15.0,
                         ),
+                        SizedBox(height: 15.0,),
+                        // defaultFormFiled(
+                        //     controller: device_nameController,
+                        //     type: TextInputType.text,
+                        //     validate: (value) {
+                        //       if (value.isEmpty) {
+                        //         return 'plese enter your device_name';
+                        //       }
+                        //       return null;
+                        //     },
+                        //     label: 'device_name',
+                        //     prefix: Icons.nat),
+                        // SizedBox(
+                        //   height: 15.0,
+                        // ),
                         defaultFormFiled(
                             controller: passwordController,
                             type: TextInputType.visiblePassword,
@@ -98,7 +114,10 @@ class LoginScreen extends StatelessWidget {
                               if (formKey.currentState!.validate()) {
                                 LoginCubit.get(context).userLogin(
                                     email: emailController.text,
-                                    password: passwordController.text);
+                                    password: passwordController.text,
+                                    // device_name: device_nameController.text,
+                                    
+                                    );
                               }
                             },
                             isPassword: LoginCubit.get(context).isPassword,
@@ -125,7 +144,10 @@ class LoginScreen extends StatelessWidget {
                                 if (formKey.currentState!.validate()) {
                                   LoginCubit.get(context).userLogin(
                                       email: emailController.text,
-                                      password: passwordController.text);
+                                      password: passwordController.text,
+                                      // device_name: device_nameController.text,
+                                      
+                                      );
                                 }
                               }),
                           fallback: (context) =>

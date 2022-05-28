@@ -1,4 +1,4 @@
-import 'package:donations_app/models/login_model.dart';
+import 'package:donations_app/models/login_model/login_model.dart';
 
 abstract class LoginStates{}
 class  LoginInitialStates extends LoginStates{}

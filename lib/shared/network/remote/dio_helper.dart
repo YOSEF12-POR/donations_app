@@ -6,6 +6,7 @@ class DioHelper {
     dio = Dio(
       BaseOptions(
         baseUrl: 'https://student.valuxapps.com/api/',
+        // baseUrl: 'http://188.161.29.128:5669/api/',
         receiveDataWhenStatusError: true,
         // headers: {
         //   'Content-Type': 'application/json',

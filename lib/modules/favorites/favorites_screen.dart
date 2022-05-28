@@ -1,7 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
-import 'package:donations_app/models/favorites_model.dart';
 import 'package:donations_app/shared/components/componets.dart';
 import 'package:donations_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';

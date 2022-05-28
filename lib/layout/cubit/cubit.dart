@@ -1,10 +1,13 @@
 import 'package:donations_app/layout/cubit/state.dart';
-import 'package:donations_app/models/categories_model.dart';
-import 'package:donations_app/models/change_favorites_model.dart';
-import 'package:donations_app/models/favorites_model.dart';
-import 'package:donations_app/models/home_model.dart';
-import 'package:donations_app/models/login_model.dart';
-import 'package:donations_app/modules/cases/cases_screen.dart';
+import 'package:donations_app/models/category/categoriesDetailsModel.dart';
+import 'package:donations_app/models/category/categories_model.dart';
+import 'package:donations_app/models/favorites/change_favorites_model.dart';
+import 'package:donations_app/models/favorites/favorites_model.dart';
+import 'package:donations_app/models/home_model/cases_model.dart';
+
+import 'package:donations_app/models/home_model/home_model.dart';
+import 'package:donations_app/models/login_model/login_model.dart';
+import 'package:donations_app/modules/home_screen.dart';
 import 'package:donations_app/modules/cateogries/cateogries_screen.dart';
 import 'package:donations_app/modules/favorites/favorites_screen.dart';
 import 'package:donations_app/modules/settings/settings_screen.dart';
@@ -21,7 +24,7 @@ class HomeCubit extends Cubit<HomeStates> {
   int currentIndex = 0;
 
   List<Widget> bottomScreens = [
-    CasesScreen(),
+    HomeScreen(),
     CateogriesScreen(),
     FavoritesScreen(),
     SettingsScreen(),
@@ -74,6 +77,31 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(HomeErrorCategoriesState());
     });
   }
+
+
+  CategoryDetailModel? categoriesDetailModel;
+  void getCategoriesDetailData( int? categoryID ) {
+    emit(CategoryDetailsLoadingState());
+    DioHelper.getData(
+      url: CATEGORIES_DETAIL,
+     query: {
+       'category_id':'$categoryID',
+     }
+    ).then((value){
+      categoriesDetailModel = CategoryDetailModel.fromJson(value.data);
+      print('categories Detail '+categoriesDetailModel!.status.toString());
+      emit(CategoryDetailsSuccessState());
+    }).catchError((error){
+      emit(CategoryDetailsErrorState());
+      print(error.toString());
+    });
+  }
+
+
+
+
+
+
 
   ChangeFavoritesModel? changeFavoritesModel;
   void changeFavorites(int caseId,) {
@@ -160,4 +188,26 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(HomeErrorUpDateUserDataState());
     });
   }
+
+CasesDetailsModel? casesDetailsModel;
+
+
+  void getCasesData(String id) {
+    casesDetailsModel = null;
+    emit(CasesLoadingState());
+    DioHelper.getData(url: 'products/$id', token: token).then((value) {
+      casesDetailsModel = CasesDetailsModel.fromJson(value.data);
+      // print('Product Detail ' + casesDetailsModel!.status.toString());
+      emit(CasesSuccessState());
+    }).catchError((error) {
+      emit(CasesErrorState());
+      print(error.toString());
+    });
+  }
+
+
+
+
+
+
 }

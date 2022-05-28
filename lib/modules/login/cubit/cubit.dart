@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:donations_app/models/login_model.dart';
+import 'package:donations_app/models/login_model/login_model.dart';
 import 'package:donations_app/modules/login/cubit/states.dart';
 import 'package:donations_app/shared/network/end_points.dart';
 import 'package:donations_app/shared/network/remote/dio_helper.dart';
@@ -12,12 +12,15 @@ class LoginCubit extends Cubit<LoginStates> {
   static LoginCubit get(context) => BlocProvider.of(context);
 
     late LoginModel  lgoinModel;
-  void userLogin({required String email, required String password}) {
+  void userLogin({required String email, required String password ,
+  //  required String device_name 
+     }) {
     emit(LoginLoadingStates());
     DioHelper.postData(
       url: LOGIN, data: {
       'email': email,
       'password': password,
+      // 'device_name': password,
       
     }).then((value) {
       print(value.data);

@@ -21,7 +21,7 @@ class SettingsScreen extends StatelessWidget {
            var model = HomeCubit.get(context).userModel;
              nameContorller.text = model!.data!.name!;
         emailContorller.text = model.data!.email!;
-        phoneContorller.text = model.data!.phone!;
+        // phoneContorller.text = model.data!.phone!;
         return Center(
           child: SingleChildScrollView(
             child: ConditionalBuilder(
@@ -86,7 +86,9 @@ class SettingsScreen extends StatelessWidget {
                               HomeCubit.get(context).updateUserData(
                                   name: nameContorller.text,
                                   email: emailContorller.text,
-                                  phone: phoneContorller.text);
+                                  phone: phoneContorller.text
+                                  
+                                  );
                             }
                           }),
                       SizedBox(

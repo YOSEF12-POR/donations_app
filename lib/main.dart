@@ -1,7 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/home.dart';
-import 'package:donations_app/layout/mainpage.dart';
 import 'package:donations_app/modules/login/login_screen.dart';
 import 'package:donations_app/modules/on_boarding/on_boarding_screen.dart';
 import 'package:donations_app/modules/splash_screen/splash_screen.dart';

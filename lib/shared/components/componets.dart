@@ -248,3 +248,8 @@ Widget buildListfCases(model,context , {bool isoldprice = true, } ) =>  Padding(
         ),
       ),
     );
+
+
+    Widget separator (double wide,double high){
+  return SizedBox(width: wide,height: high,);
+}

@@ -1,5 +1,5 @@
-import 'package:donations_app/models/change_favorites_model.dart';
-import 'package:donations_app/models/login_model.dart';
+import 'package:donations_app/models/favorites/change_favorites_model.dart';
+import 'package:donations_app/models/login_model/login_model.dart';
 
 abstract class HomeStates{}
 class HomeInitialState extends HomeStates{}
@@ -39,3 +39,17 @@ class HomeSuccessUpDateUserDataState extends HomeStates{
   HomeSuccessUpDateUserDataState(this.loginModel);
 }
 class HomeErrorUpDateUserDataState extends HomeStates{}
+
+
+
+class CasesLoadingState extends HomeStates{}
+class CasesSuccessState extends HomeStates{}
+class CasesErrorState extends HomeStates{}
+
+
+class CategoryDetailsLoadingState extends HomeStates{}
+class CategoryDetailsSuccessState extends HomeStates{}
+class CategoryDetailsErrorState extends HomeStates{}
+
+
+
