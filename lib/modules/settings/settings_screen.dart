@@ -1,6 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
+import 'package:donations_app/modules/login/cubit/cubit.dart';
+import 'package:donations_app/modules/login/cubit/states.dart';
 import 'package:donations_app/shared/components/componets.dart';
 import 'package:donations_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -13,19 +15,17 @@ class SettingsScreen extends StatelessWidget {
   var nameContorller = TextEditingController();
   var emailContorller = TextEditingController();
   var phoneContorller = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) {
-           var model = HomeCubit.get(context).userModel;
-             nameContorller.text = model!.data!.name!;
-        emailContorller.text = model.data!.email!;
-        // phoneContorller.text = model.data!.phone!;
+
         return Center(
           child: SingleChildScrollView(
             child: ConditionalBuilder(
-              condition: HomeCubit.get(context).userModel != null,
+              condition: true,
               builder: (context) => Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Form(
@@ -79,18 +79,18 @@ class SettingsScreen extends StatelessWidget {
                       SizedBox(
                         height: 20.0,
                       ),
-                      defaultButton(
-                          text: 'Up Date',
-                          function: () {
-                            if (formKey.currentState!.validate()) {
-                              HomeCubit.get(context).updateUserData(
-                                  name: nameContorller.text,
-                                  email: emailContorller.text,
-                                  phone: phoneContorller.text
+                      // defaultButton(
+                      //     text: 'Up Date',
+                      //     function: () {
+                      //       if (formKey.currentState!.validate()) {
+                      //         HomeCubit.get(context).updateUserData(
+                      //             name: nameContorller.text,
+                      //             email: emailContorller.text,
+                      //             phone: phoneContorller.text
                                   
-                                  );
-                            }
-                          }),
+                      //             );
+                      //       }
+                      //     }),
                       SizedBox(
                         height: 20.0,
                       ),

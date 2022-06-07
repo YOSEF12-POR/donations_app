@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (BuildContext context) => HomeCubit()
               ..getHomeData()
-              ..getGategoryData()..getFavorites()..getUserData()
+              ..getGategoryData()
              )
       ],
       child: MaterialApp(
@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
         Locale('ar', 'AE'), // English, no country code
       ],
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.grey[100],
+          scaffoldBackgroundColor: Colors.white,
           appBarTheme: const AppBarTheme(
             titleSpacing: 20.0,
             systemOverlayStyle: SystemUiOverlayStyle(
@@ -115,22 +115,17 @@ class MyApp extends StatelessWidget {
         home: SplashScreenView(
                 navigateRoute: startWidget,
                 duration: 5000,
-                imageSize: 190,
-                imageSrc: "assets/images/logo.png",
-                text: "مكارم الخير",
-                textType: TextType.ColorizeAnimationText,
+                imageSize: 300,                
+                imageSrc: "assets/images/logo11.png",
+                text: "معاً نحيا",
+                textType: TextType.TyperAnimatedText,
                 textStyle: const TextStyle(
-                  fontSize: 40.0,
+                  fontSize: 50.0,
                   fontFamily: 'Jannah',
                   fontWeight: FontWeight.bold
                 ),
-                colors: const [
-                  Colors.yellowAccent,
-                  defaultColor, 
-                 Colors.yellowAccent,
-                 defaultColor, 
-                  
-                ],
+                backgroundColor: Colors.white
+
       ),
     )
     );

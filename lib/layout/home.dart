@@ -17,7 +17,7 @@ class HomeLayout extends StatelessWidget {
         return Scaffold(
           
           appBar: AppBar(
-            title: Text('مكارم الخير',),
+            title: Text('معاً نحيا',),
             actions: [
               IconButton(
                   onPressed: () {
@@ -30,12 +30,11 @@ class HomeLayout extends StatelessWidget {
                   
                   height: 50,
                   width: 50,
-                  child: Image.asset('assets/images/logo.png')
+                  child: Image.asset('assets/images/logo11.png')
                   ),
               ),
             ],
           ),
-          // drawer: AppDrawer(),//---------------------
           body: cubit.bottomScreens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
@@ -47,9 +46,9 @@ class HomeLayout extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: Icon(Icons.apps), label: 'الأقسام'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.wallet_giftcard_rounded), label: 'المفضلة'),
+                  icon: Icon(Icons.account_balance_wallet_outlined), label: 'حسابي'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: 'حسابي'),
+                  icon: Icon(Icons.settings), label: 'الإعدادت'),
             ],
           ),
         );

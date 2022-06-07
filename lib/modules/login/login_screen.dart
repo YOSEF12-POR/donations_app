@@ -46,7 +46,6 @@ class LoginScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),
-            // drawer: AppDrawer(),
             body: Center(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
@@ -59,53 +58,53 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: Container(
-                  height: 190,
-                  child: Image.asset('assets/images/logo.png'),
+                  height: 250,
+                  child: Image.asset('assets/images/logo11.png'),
                 ),
                         ),
                         Text(
-                          'LOGIN',
+                          'تسجيل الدخول',
                           style: Theme.of(context).textTheme.headline5,
                         ),
                         Text(
-                          'Login now and contribute with us',
+                          'سجل الدخول الآن وساهم معنا',
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
                               .copyWith(color: Colors.grey),
                         ),
                         SizedBox(
-                          height: 30.0,
+                          height: 20.0,
                         ),
                         defaultFormFiled(
                             controller: emailController,
                             type: TextInputType.emailAddress,
                             validate: (value) {
                               if (value.isEmpty) {
-                                return 'plese enter your email address';
+                                return 'الرجاء إدخال عنوان البريد الإلكتروني الخاص بك';
                               }
                               return null;
                             },
-                            label: 'Email Address',
+                            label: 'البريد الالكترونى',
                             prefix: Icons.email),
                         SizedBox(
                           height: 15.0,
                         ),
                         SizedBox(height: 15.0,),
-                        // defaultFormFiled(
-                        //     controller: device_nameController,
-                        //     type: TextInputType.text,
-                        //     validate: (value) {
-                        //       if (value.isEmpty) {
-                        //         return 'plese enter your device_name';
-                        //       }
-                        //       return null;
-                        //     },
-                        //     label: 'device_name',
-                        //     prefix: Icons.nat),
-                        // SizedBox(
-                        //   height: 15.0,
-                        // ),
+                        defaultFormFiled(
+                            controller: device_nameController,
+                            type: TextInputType.text,
+                            validate: (value) {
+                              if (value.isEmpty) {
+                                return 'plese enter your device_name';
+                              }
+                              return null;
+                            },
+                            label: 'device_name',
+                            prefix: Icons.nat),
+                        SizedBox(
+                          height: 15.0,
+                        ),
                         defaultFormFiled(
                             controller: passwordController,
                             type: TextInputType.visiblePassword,
@@ -115,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                                 LoginCubit.get(context).userLogin(
                                     email: emailController.text,
                                     password: passwordController.text,
-                                    // device_name: device_nameController.text,
+                                    device_name: device_nameController.text,
                                     
                                     );
                               }
@@ -127,11 +126,11 @@ class LoginScreen extends StatelessWidget {
                             },
                             validate: (value) {
                               if (value.isEmpty) {
-                                return 'Password Error';
+                                return 'خطأ في كلمة المرور';
                               }
                               return null;
                             },
-                            label: 'Password',
+                            label: 'كلمة المرور',
                             prefix: Icons.lock_outlined),
                         SizedBox(
                           height: 20.0,
@@ -139,13 +138,13 @@ class LoginScreen extends StatelessWidget {
                         ConditionalBuilder(
                           condition: state is! LoginLoadingStates,
                           builder: (context) => defaultButton(
-                              text: 'LOGIN',
+                              text: 'تسجيل الدخول',
                               function: () {
                                 if (formKey.currentState!.validate()) {
                                   LoginCubit.get(context).userLogin(
                                       email: emailController.text,
                                       password: passwordController.text,
-                                      // device_name: device_nameController.text,
+                                      device_name: device_nameController.text,
                                       
                                       );
                                 }
@@ -159,12 +158,12 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Don\'t have an account ? '),
+                            Text('ليس لديك حساب ؟ '),
                             defaultTextButton(
                                 function: () {
                                   navigateTo(context, RegisterScreen());
                                 },
-                                text: 'register'),
+                                text: 'سجل الان'),
                           ],
                         )
                       ],

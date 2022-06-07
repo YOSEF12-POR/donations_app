@@ -96,7 +96,7 @@ Widget defaultButton({
   double r = 3.0,
   required String text,
   bool isUpper = true,
-  Color back = Colors.blue,
+  Color back = Colors.green,
   required Function function,
 }) =>
     Container(
@@ -223,22 +223,23 @@ Widget buildListfCases(model,context , {bool isoldprice = true, } ) =>  Padding(
                               decoration: TextDecoration.lineThrough),
                         ),
                       Spacer(),
-                      IconButton(
-                        onPressed: () {
-                          HomeCubit.get(context).changeFavorites(model.id!);
-                        },
-                        icon: CircleAvatar(
-                          radius: 30.0,
-                          backgroundColor:
-                              HomeCubit.get(context).favorites[model.id]!
-                               ? defaultColor : Colors.grey,
-                          child: Icon(
-                            Icons.wallet_giftcard_rounded,
-                            size: 22.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
+                      // IconButton(
+                      //   onPressed: () {
+                      //     // HomeCubit.get(context).changeFavorites(model.id!);
+                      //   },
+                      //   icon: CircleAvatar(
+                      //     radius: 30.0,
+                      //     backgroundColor:
+                      //         HomeCubit.get(context).favorites[model.id]!
+                      //          ? defaultColor 
+                      //          : Colors.grey,
+                      //     child: Icon(
+                      //       Icons.wallet_giftcard_rounded,
+                      //       size: 22.0,
+                      //       color: Colors.white,
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 ],

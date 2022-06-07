@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:donations_app/shared/network/end_points.dart';
 
 class DioHelper {
   static Dio? dio;
   static init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://student.valuxapps.com/api/',
-        // baseUrl: 'http://188.161.29.128:5669/api/',
+        // baseUrl: 'https://student.valuxapps.com/api/',
+        baseUrl: baseUrl,
         receiveDataWhenStatusError: true,
         // headers: {
         //   'Content-Type': 'application/json',

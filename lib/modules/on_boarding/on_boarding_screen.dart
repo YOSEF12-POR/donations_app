@@ -99,18 +99,18 @@ void submit(){
                         spacing: 5.0),
                     count: boarding.length),
                 Spacer(),
-                FloatingActionButton(
-                  onPressed: () {
-                    if (isLast) {
-                      submit;
-                    } else {
-                      boardController.nextPage(
-                          duration: Duration(milliseconds: 750),
-                          curve: Curves.fastLinearToSlowEaseIn);
-                    }
-                  },
-                  child: Icon(Icons.arrow_forward_ios),
-                )
+                // FloatingActionButton(
+                //   onPressed: () {
+                //     if (isLast) {
+                //       submit;
+                //     } else {
+                //       boardController.nextPage(
+                //           duration: Duration(milliseconds: 750),
+                //           curve: Curves.fastLinearToSlowEaseIn);
+                //     }
+                //   },
+                //   child: Icon(Icons.arrow_forward_ios),
+                // )
               ],
             )
           ],

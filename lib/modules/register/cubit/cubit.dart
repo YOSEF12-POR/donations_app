@@ -12,7 +12,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   late LoginModel lgoinModel;
   void userRegister(
       {required String name,
-      required String phone,
+      // required String phone,
       required String email,
       required String password}) {
     emit(RegisterLoadingStates());
@@ -20,7 +20,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       'email': email,
       'password': password,
       'name': name,
-      'phone': phone,
+      // 'phone': phone,
     }).then((value) {
       print(value.data);
       lgoinModel = LoginModel.fromJson(value.data);

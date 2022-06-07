@@ -1,32 +1,49 @@
+import 'dart:developer';
+
 import 'package:donations_app/layout/cubit/state.dart';
 import 'package:donations_app/models/category/categoriesDetailsModel.dart';
+// as category;
 import 'package:donations_app/models/category/categories_model.dart';
-import 'package:donations_app/models/favorites/change_favorites_model.dart';
-import 'package:donations_app/models/favorites/favorites_model.dart';
-import 'package:donations_app/models/home_model/cases_model.dart';
+import 'package:donations_app/models/home_model/projects_model.dart';
 
 import 'package:donations_app/models/home_model/home_model.dart';
 import 'package:donations_app/models/login_model/login_model.dart';
+import 'package:donations_app/modules/account/account_screen.dart';
 import 'package:donations_app/modules/home_screen.dart';
 import 'package:donations_app/modules/cateogries/cateogries_screen.dart';
-import 'package:donations_app/modules/favorites/favorites_screen.dart';
 import 'package:donations_app/modules/settings/settings_screen.dart';
 import 'package:donations_app/shared/components/constants.dart';
 import 'package:donations_app/shared/network/end_points.dart';
 import 'package:donations_app/shared/network/remote/dio_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:convert';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
 
   static HomeCubit get(context) => BlocProvider.of(context);
+
+  CategoryDetailModel? categoriesDetailModel;
+  ProjectsDetailsModel? casesDetailsModel;
+  CategoryModel? categoryModel;
+
   int currentIndex = 0;
+  String? name;
+
+  List<ProjectsModel> projectsListH = [];
+  List<BannerModel> bannersListH = [];
+  List<Projects> projectsList = [];
+  List<dynamic> data = [];
+
+  int? count_project = 0;
+  int? sum_received_amount = 0;
+  int? sum_num_beneficiaries = 0;
 
   List<Widget> bottomScreens = [
     HomeScreen(),
     CateogriesScreen(),
-    FavoritesScreen(),
+    AccountScreen(),
     SettingsScreen(),
   ];
 
@@ -35,24 +52,30 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(HomeChangeBottomNavlState());
   }
 
-  HomeModel? homeModel;
-  Map<int, bool> favorites = {};
-
-  // dynamic price;
-
   void getHomeData() {
     emit(HomeLoadingHomeDataState());
     DioHelper.getData(
       url: HOME,
       token: token,
     ).then((value) {
-      homeModel = HomeModel.fromJson(value.data);
+      count_project = value.data['data']['count_project'];
+      sum_received_amount = value.data['data']['sum_received_amount'];
+      sum_num_beneficiaries = value.data['data']['sum_num_beneficiaries'];
+      
 
-      homeModel!.data.products.forEach((element) {
-        favorites.addAll({element.id: element.inFavorites});
+      List<dynamic> dataHome = value.data['data']['projects'];
+
+      dataHome.forEach((element) {
+        ProjectsModel projectsHome = ProjectsModel.fromJson(element);
+        projectsListH.add(projectsHome);
       });
 
-      print(favorites.toString());
+      List<dynamic> dataHomeBanner = value.data['data']['banners'];
+      dataHomeBanner.forEach((element) {
+        BannerModel bannerModel = BannerModel.fromJson(element);
+        // log('${element}' , name: "element");
+        bannersListH.add(bannerModel);
+      });
 
       emit(HomeSuccessHomeDataState());
     }).catchError((error) {
@@ -60,8 +83,59 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(HomeErrorHomeDataState());
     });
   }
+  
+  List<ProjectCategoryM> projrctCM = [];
+  List<dynamic> dataPM = [];
+    List<ProjectAssociationM> projrctAM = [];
+  List<dynamic> dataPA = [];
+  void getProjectData(int? id) {
+    emit(ProjectLoadingState());
+    DioHelper.getData(url:'projects/1', token: token).then((value) {
 
-  CategoryModel? categoryModel;
+      log('${value.data['data']['duration_unit']}' , name: "1");
+
+      dataPM = value.data['data']['category'];
+      dataPA = value.data['data']['association'];
+
+      dataPM.forEach((element) {
+        ProjectCategoryM projectCategoryM = ProjectCategoryM.fromJson(element);
+        log('${element}' , name: "element");
+        projrctCM.add(projectCategoryM);
+      });
+
+         dataPA.forEach((element) {
+        ProjectAssociationM projectAssociationM = ProjectAssociationM.fromJson(element);
+        log('${element}' , name: "element");
+        projrctAM.add(projectAssociationM);
+      });
+
+      emit(ProjectSuccessState());
+    }).catchError((error) {
+      emit(ProjectErrorState());
+      print(error.toString());
+    });
+  }
+
+  void getCategoriesDetailData(int? categoryID) {
+    emit(CategoryDetailsLoadingState());
+    DioHelper.getData(
+      url: 'categories/$categoryID',
+    ).then((value) {
+      projectsList.length = 0;
+      data.length = 0;
+
+      data = value.data['data'];
+      data.forEach((element) {
+        Projects project = Projects.fromJson(element);
+        projectsList.add(project);
+      });
+
+      emit(CategoryDetailsSuccessState());
+    }).catchError((error) {
+      emit(CategoryDetailsErrorState());
+      print(error.toString());
+    });
+  }
 
   void getGategoryData() {
     emit(HomeLoadingHomeDataState());
@@ -77,137 +151,6 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(HomeErrorCategoriesState());
     });
   }
-
-
-  CategoryDetailModel? categoriesDetailModel;
-  void getCategoriesDetailData( int? categoryID ) {
-    emit(CategoryDetailsLoadingState());
-    DioHelper.getData(
-      url: CATEGORIES_DETAIL,
-     query: {
-       'category_id':'$categoryID',
-     }
-    ).then((value){
-      categoriesDetailModel = CategoryDetailModel.fromJson(value.data);
-      print('categories Detail '+categoriesDetailModel!.status.toString());
-      emit(CategoryDetailsSuccessState());
-    }).catchError((error){
-      emit(CategoryDetailsErrorState());
-      print(error.toString());
-    });
-  }
-
-
-
-
-
-
-
-  ChangeFavoritesModel? changeFavoritesModel;
-  void changeFavorites(int caseId,) {
-    favorites[caseId] = !favorites[caseId]!;
-    emit(HomeChangeFavoritesState());
-
-    DioHelper.postData(
-      url: FAVORITES,
-      data: {'product_id': caseId},
-      token: token,
-    ).then((value) {
-      changeFavoritesModel = ChangeFavoritesModel.fromJson(value.data);
-      // print(value.data);
-
-      if (!changeFavoritesModel!.status!) {
-        favorites[caseId] = !favorites[caseId]!;
-      } else {
-        getFavorites();
-      }
-      emit(HomeChangeSuccessFavoritesState(changeFavoritesModel!));
-    }).catchError((erorr) {
-      favorites[caseId] = !favorites[caseId]!;
-
-      emit(HomeChangeErrorFavoritesState());
-    });
-  }
-
-  FavoritesModel? favoritesModel;
-  void getFavorites() {
-    emit(HomeLoadingGetFavoritesState());
-
-    DioHelper.getData(
-      url: FAVORITES,
-      token: token,
-
-      
-    
-    ).then((value) {
-      favoritesModel = FavoritesModel.fromJson(value.data);
-      emit(HomeSuccessGetFavoritesState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(HomeErrorGetFavoritesState());
-    });
-  }
-
-
-  LoginModel? userModel;
-
-  void getUserData() {
-    emit(HomeLoadingUserDataState());
-
-    DioHelper.getData(
-      url: PROFILE,
-      token: token,
-    ).then((value) {
-      userModel = LoginModel.fromJson(value.data);
-      print(userModel!.data!.name);
-      emit(HomeSuccessUserDataState(userModel!));
-    }).catchError((error) {
-      print(error.toString());
-      emit(HomeErrorUserDataState());
-    });
-  }
-
-  void updateUserData({
-    required String name,
-    required String email,
-    required String phone,
-  }) {
-    emit(HomeLoadingUpDateUserDataState());
-
-    DioHelper.putData(url: UPDATE_PROFILE, token: token, data: {
-        'name': name,
-        'email': email,
-        'phone': phone,
-
-    }).then((value) {
-      userModel = LoginModel.fromJson(value.data);
-      print(userModel!.data!.name);
-      emit(HomeSuccessUpDateUserDataState(userModel!));
-    }).catchError((error) {
-      print(error.toString());
-      emit(HomeErrorUpDateUserDataState());
-    });
-  }
-
-CasesDetailsModel? casesDetailsModel;
-
-
-  void getCasesData(String id) {
-    casesDetailsModel = null;
-    emit(CasesLoadingState());
-    DioHelper.getData(url: 'products/$id', token: token).then((value) {
-      casesDetailsModel = CasesDetailsModel.fromJson(value.data);
-      // print('Product Detail ' + casesDetailsModel!.status.toString());
-      emit(CasesSuccessState());
-    }).catchError((error) {
-      emit(CasesErrorState());
-      print(error.toString());
-    });
-  }
-
-
-
-
 
 
 }

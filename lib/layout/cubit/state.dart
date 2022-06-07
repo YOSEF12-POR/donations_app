@@ -42,9 +42,9 @@ class HomeErrorUpDateUserDataState extends HomeStates{}
 
 
 
-class CasesLoadingState extends HomeStates{}
-class CasesSuccessState extends HomeStates{}
-class CasesErrorState extends HomeStates{}
+class ProjectLoadingState extends HomeStates{}
+class ProjectSuccessState extends HomeStates{}
+class ProjectErrorState extends HomeStates{}
 
 
 class CategoryDetailsLoadingState extends HomeStates{}

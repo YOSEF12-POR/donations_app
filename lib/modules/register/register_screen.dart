@@ -19,7 +19,7 @@ class RegisterScreen extends StatelessWidget {
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  var phoneController = TextEditingController();
+  // var phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +64,15 @@ class RegisterScreen extends StatelessWidget {
                       children: [
                         Center(
                             child: Container(
-                          height: 190,
-                          child: Image.asset('assets/images/logo.png'),
+                          height: 250,
+                          child: Image.asset('assets/images/logo11.png'),
                         )),
                         Text(
-                          'REGISTER',
+                          'حساب جديد',
                           style: Theme.of(context).textTheme.headline5,
                         ),
                         Text(
-                          ' Register now and contribute with us',
+                          ' قم بإنشاء حسابك وساهم معنا',
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -86,11 +86,11 @@ class RegisterScreen extends StatelessWidget {
                             type: TextInputType.name,
                             validate: (value) {
                               if (value.isEmpty) {
-                                return 'plese enter your name';
+                                return 'من فضلك أدخل إسمك';
                               }
                               return null;
                             },
-                            label: ' User Name',
+                            label: 'الإسم',
                             prefix: Icons.person),
                         SizedBox(
                           height: 15.0,
@@ -100,11 +100,11 @@ class RegisterScreen extends StatelessWidget {
                             type: TextInputType.emailAddress,
                             validate: (value) {
                               if (value.isEmpty) {
-                                return 'plese enter your email address';
+                                return 'الرجاء إدخال عنوان البريد الإلكتروني الخاص بك';
                               }
                               return null;
                             },
-                            label: 'Email Address',
+                            label: 'البريد الالكترونى',
                             prefix: Icons.email),
                         SizedBox(
                           height: 15.0,
@@ -127,40 +127,41 @@ class RegisterScreen extends StatelessWidget {
                             },
                             validate: (value) {
                               if (value.isEmpty) {
-                                return 'Password Error';
+                                return 'خطأ في كلمة المرور';
                               }
                               return null;
                             },
-                            label: 'Password',
+                            label: 'كلمة المرور',
                             prefix: Icons.lock_outlined),
                         SizedBox(
                           height: 20.0,
                         ),
-                        defaultFormFiled(
-                            controller: phoneController,
-                            type: TextInputType.phone,
-                            validate: (value) {
-                              if (value.isEmpty) {
-                                return 'plese enter your phone';
-                              }
-                              return null;
-                            },
-                            label: 'Phone Number',
-                            prefix: Icons.phone),
-                        SizedBox(
-                          height: 15.0,
-                        ),
+                        // defaultFormFiled(
+                        //     controller: phoneController,
+                        //     type: TextInputType.phone,
+                        //     validate: (value) {
+                        //       if (value.isEmpty) {
+                        //         return 'plese enter your phone';
+                        //       }
+                        //       return null;
+                        //     },
+                        //     label: 'Phone Number',
+                        //     prefix: Icons.phone),
+                        // SizedBox(
+                        //   height: 15.0,
+                        // ),
                         ConditionalBuilder(
                           condition: state is! RegisterLoadingStates,
                           builder: (context) => defaultButton(
-                              text: 'REGISTER',
+                              text: 'تسجيل ',
                               function: () {
                                 if (formKey.currentState!.validate()) {
                                   RegisterCubit.get(context).userRegister(
                                       name: nameController.text,
                                       email: emailController.text,
                                       password: passwordController.text,
-                                      phone: phoneController.text);
+                                      // phone: phoneController.text
+                                      );
                                 }
                               }),
                           fallback: (context) =>
@@ -169,12 +170,12 @@ class RegisterScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Do you already have an account ? '),
+                            Text('هل لديك حساب بالفعل ؟ '),
                             defaultTextButton(
                                 function: () {
                                   navigateTo(context, LoginScreen());
                                 },
-                                text: 'login'),
+                                text: 'تسجيل الدخول'),
                           ],
                         )
                       ],

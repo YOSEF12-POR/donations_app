@@ -14,7 +14,7 @@ class SearchCubit extends Cubit<SearchStates> {
   void search(String text) {
     emit(SearchLoadingStates());
 
-    DioHelper.postData(url: SEARCH,
+    DioHelper.postData(url: 'SEARCH',
     token: token,
      data: {'text': text}).then((value) {
       model = SearchModel.fromJson(value.data);
