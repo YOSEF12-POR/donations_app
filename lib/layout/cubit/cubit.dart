@@ -88,14 +88,19 @@ class HomeCubit extends Cubit<HomeStates> {
   List<dynamic> dataPM = [];
     List<ProjectAssociationM> projrctAM = [];
   List<dynamic> dataPA = [];
+    String? title;
+  String? description;
+
   void getProjectData(int? id) {
     emit(ProjectLoadingState());
-    DioHelper.getData(url:'projects/1', token: token).then((value) {
+    DioHelper.getData(url:'projects/$id', token: token).then((value) {
 
       log('${value.data['data']['duration_unit']}' , name: "1");
 
       dataPM = value.data['data']['category'];
       dataPA = value.data['data']['association'];
+title = value.data['data']['title'];
+description = value.data['data']['description'];
 
       dataPM.forEach((element) {
         ProjectCategoryM projectCategoryM = ProjectCategoryM.fromJson(element);

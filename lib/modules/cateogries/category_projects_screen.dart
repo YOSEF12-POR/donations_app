@@ -96,7 +96,7 @@ class CategoryProjectsScreen extends StatelessWidget {
       onTap: () {
         HomeCubit.get(context).getProjectData(model.id);
         print(model.title);
-        navigateTo(context, ProjectsDetails(model.id));
+        navigateTo(context, ProjectsDetails());
       },
       child: Padding(
         padding: const EdgeInsets.all(4.0),
