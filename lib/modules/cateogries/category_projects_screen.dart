@@ -15,9 +15,7 @@ class CategoryProjectsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -53,10 +51,9 @@ class CategoryProjectsScreen extends StatelessWidget {
                   : SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
                       child: Container(
-                        color: Colors.grey[300],
+                        color: Colors.white,
                         child: Column(
                           children: [
-                           
                             // separator(0, 1),
                             GridView.count(
                               crossAxisCount: 1,
@@ -79,7 +76,7 @@ class CategoryProjectsScreen extends StatelessWidget {
                                               .projectsList[index],
                                           context)),
                               crossAxisSpacing: 1,
-                              childAspectRatio: 1,
+                              childAspectRatio: 1.05,
                               mainAxisSpacing: 1,
                             ),
                           ],
@@ -99,210 +96,108 @@ class CategoryProjectsScreen extends StatelessWidget {
         navigateTo(context, ProjectsDetails());
       },
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(2),
-                topRight: Radius.circular(2),
-                bottomLeft: Radius.circular(2),
-                bottomRight: Radius.circular(2)),
+                topLeft: Radius.circular(1),
+                topRight: Radius.circular(1),
+                bottomLeft: Radius.circular(1),
+                bottomRight: Radius.circular(1)),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey[200]!,
-                spreadRadius: 4,
-                blurRadius: 6,
-                offset: Offset(0, 4),
+                color: Colors.grey[100]!,
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: Offset(0, 1),
               ),
             ],
           ),
           height: 600,
           width: 400,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: 100,
-              width: 400,
-              child: Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image(
+          child: Container(
+            height: 100,
+            width: 400,
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    Image(
                       image: NetworkImage(
                           "https://d1qqr5712pvfjx.cloudfront.net/blobs/zm9r0utl6eehjitt3ham32lrye8d"),
                       width: double.infinity,
-                      height: 200,
+                      height: 210,
                       fit: BoxFit.cover,
                     ),
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Container(
+                  ],
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Center(
-                          child: LinearPercentIndicator(
-                            width: MediaQuery.of(context).size.width - 28,
-                            animation: true,
-                            lineHeight: 22.0,
-                            isRTL: true,
-                            animationDuration: 2500,
-                            percent: 0.9,
-                            center: Text(
-                              '11 % ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.0),
+                        Container(
+                          width: double.infinity,
+                          child: Text(
+                            '${model.title}',
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 19.0,
                             ),
-                            linearStrokeCap: LinearStrokeCap.roundAll,
-                            progressColor: defaultColor,
-                            backgroundColor: Colors.grey[100],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 0.0, left: 12.0, right: 12.0, bottom: 2.0),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 300,
-                                child: Text(
-                                  '${model.title}',
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 19.0,
-                                  ),
-                                ),
-                              ),
-                              Spacer(),
-                              IconButton(
-                                  onPressed: () {
-                                    showToast(
-                                        text: 'التفاصيل',
-                                        state: ToastStates.WARNING);
-                                  },
-                                  icon: Icon(Icons.info_outline_rounded)),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 0.0, left: 12.0, right: 12.0, bottom: 2.0),
-                          child: Row(
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text('تم الجمع '),
-                                      SizedBox(
-                                        width: 5.0,
-                                      ),
-                                      Text(
-                                        '11',
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 14.0, color: defaultColor),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text('المبلغ المتبقي'),
-                                      SizedBox(
-                                        width: 5.0,
-                                      ),
-                                      Text(
-                                        '11',
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 14.0, color: defaultColor),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
+                        Column(
                           children: [
-                            IconButton(
-                              onPressed: () {
-                                showToast(
-                                    text: 'مشاركة', state: ToastStates.WARNING);
-                              },
-                              icon: CircleAvatar(
-                                radius: 30.0,
-                                backgroundColor: Colors.grey,
-                                child: Icon(
-                                  Icons.share_sharp,
-                                  size: 22.0,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            Spacer(),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20.0),
-                              child: Container(
-                                  color: Colors.blue,
-                                  width: 250,
-                                  height: 40,
-                                  child: FlatButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      'تبرع',
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
+                            Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '300 من 1000 ',
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.black,
                                     ),
-                                  )),
-                            ),
-                            Spacer(),
-                            IconButton(
-                            onPressed: () {
-                              // HomeCubit.get(context).changeFavorites(model.id);
-                            },
-                            icon: CircleAvatar(
-                              radius: 30.0,
-                              // backgroundColor:
-                              //     HomeCubit.get(context).favorites[model.id]!
-                              //         ? defaultColor
-                              //         : Colors.grey,
-                              child: Icon(
-                                Icons.wallet_giftcard_rounded,
-                                size: 22.0,
-                                color: Colors.white,
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    '% 30 ',
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                        fontSize: 15.0,
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
                             ),
+                            Center(
+                              child: LinearPercentIndicator(
+                                width: MediaQuery.of(context).size.width - 50,
+                                animation: true,
+                                lineHeight: 22.0,
+                                isRTL: true,
+                                animationDuration: 2500,
+                                percent: 0.8,
+                                linearStrokeCap: LinearStrokeCap.roundAll,
+                                progressColor: defaultColor,
+                                backgroundColor: Colors.grey[100],
+                              ),
                             ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

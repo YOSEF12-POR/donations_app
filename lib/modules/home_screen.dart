@@ -5,7 +5,9 @@ import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
 import 'package:donations_app/models/category/categories_model.dart';
 import 'package:donations_app/models/home_model/home_model.dart';
+import 'package:donations_app/modules/cateogries/category_projects_screen.dart';
 import 'package:donations_app/modules/cateogries/cateogries_screen.dart';
+import 'package:donations_app/modules/project/project_screen.dart';
 import 'package:donations_app/modules/search/search_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
 import 'package:donations_app/shared/network/end_points.dart';
@@ -43,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                   : SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
                       child: Container(
-                        color: Colors.grey[100],
+                        color: Colors.white,
                         child: Column(
                           children: [
                             SizedBox(
@@ -93,41 +95,58 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InkWell(
-              child: CarouselSlider(
-                items: HomeCubit.get(context)
-                    .bannersListH
-                    .map(
-                      (e) => Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image(
+            CarouselSlider(
+              items: HomeCubit.get(context)
+                  .bannersListH
+                  .map(
+                    (e) => InkWell(
+                      onTap: () {
+                        HomeCubit.get(context)
+                            .getCategoriesDetailData(e.id);
+                        navigateTo(
+                            context, CategoryProjectsScreen(e.name));
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Stack(
+                          children: [
+                            Image(
                               image: NetworkImage(
                                   "https://d1qqr5712pvfjx.cloudfront.net/blobs/zm9r0utl6eehjitt3ham32lrye8d"),
                               width: 350,
                               height: 200,
                               fit: BoxFit.cover,
                             ),
-                          ),
-                          Text('${e.name}'),
-                        ],
+                            Container(
+                              width: 350,
+                              height: 200,
+                              padding: EdgeInsets.all(10),
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                '${e.name}',
+                                style: TextStyle(
+                                    fontSize: 30.0, color: Colors.white),
+                              ),
+                              color: Colors.black.withOpacity(0.2),
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                    .toList(),
-                options: CarouselOptions(
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 0.8,
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 4),
-                  autoPlayAnimationDuration: Duration(seconds: 1),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  scrollDirection: Axis.horizontal,
-                ),
+                    ),
+                  )
+                  .toList(),
+              options: CarouselOptions(
+                aspectRatio: 16 / 9,
+                viewportFraction: 0.8,
+                initialPage: 0,
+                enableInfiniteScroll: true,
+                reverse: false,
+                autoPlay: true,
+                autoPlayInterval: Duration(seconds: 4),
+                autoPlayAnimationDuration: Duration(seconds: 1),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                scrollDirection: Axis.horizontal,
               ),
             ),
             SizedBox(
@@ -385,210 +404,217 @@ class HomeScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildProjects(ProjectsModel model, context) => Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8),
-              topRight: Radius.circular(8),
-              bottomLeft: Radius.circular(8),
-              bottomRight: Radius.circular(8)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[200]!,
-              spreadRadius: 4,
-              blurRadius: 6,
-              offset: Offset(0, 4),
-            ),
-          ],
-        ),
-        height: 600,
-        width: 400,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: 100,
-            width: 400,
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image(
-                    image: NetworkImage(
-                        "https://d1qqr5712pvfjx.cloudfront.net/blobs/zm9r0utl6eehjitt3ham32lrye8d"),
-                    width: double.infinity,
-                    height: 200,
-                    fit: BoxFit.cover,
+  Widget buildProjects(ProjectsModel model, context) => InkWell(
+   onTap: () {
+        HomeCubit.get(context).getProjectData(model.id);
+        print(model.title);
+        navigateTo(context, ProjectsDetails());
+      },
+    child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
+                bottomLeft: Radius.circular(8),
+                bottomRight: Radius.circular(8)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[200]!,
+                spreadRadius: 4,
+                blurRadius: 6,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          height: 600,
+          width: 400,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 100,
+              width: 400,
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image(
+                      image: NetworkImage(
+                          "https://d1qqr5712pvfjx.cloudfront.net/blobs/zm9r0utl6eehjitt3ham32lrye8d"),
+                      width: double.infinity,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 5.0,
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Center(
-                        child: LinearPercentIndicator(
-                          width: MediaQuery.of(context).size.width - 28,
-                          animation: true,
-                          lineHeight: 22.0,
-                          isRTL: true,
-                          animationDuration: 2500,
-                          percent: model.received_amount / model.require_amount,
-                          center: Text(
-                            '${(model.received_amount / model.require_amount * 100).round()} % ',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14.0),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Center(
+                          child: LinearPercentIndicator(
+                            width: MediaQuery.of(context).size.width - 28,
+                            animation: true,
+                            lineHeight: 22.0,
+                            isRTL: true,
+                            animationDuration: 2500,
+                            percent: model.received_amount / model.require_amount,
+                            center: Text(
+                              '${(model.received_amount / model.require_amount * 100).round()} % ',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14.0),
+                            ),
+                            linearStrokeCap: LinearStrokeCap.roundAll,
+                            progressColor: defaultColor,
+                            backgroundColor: Colors.grey[100],
                           ),
-                          linearStrokeCap: LinearStrokeCap.roundAll,
-                          progressColor: defaultColor,
-                          backgroundColor: Colors.grey[100],
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 0.0, left: 12.0, right: 12.0, bottom: 2.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 300,
-                              child: Text(
-                                '${model.title}',
-                                textAlign: TextAlign.start,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 19.0,
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 0.0, left: 12.0, right: 12.0, bottom: 2.0),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 300,
+                                child: Text(
+                                  '${model.title}',
+                                  textAlign: TextAlign.start,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 19.0,
+                                  ),
                                 ),
                               ),
+                              Spacer(),
+                              IconButton(
+                                  onPressed: () {
+                                    showToast(
+                                        text: 'التفاصيل',
+                                        state: ToastStates.WARNING);
+                                  },
+                                  icon: Icon(Icons.info_outline_rounded)),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 0.0, left: 12.0, right: 12.0, bottom: 2.0),
+                          child: Row(
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text('تم الجمع '),
+                                      SizedBox(
+                                        width: 5.0,
+                                      ),
+                                      Text(
+                                        '${model.received_amount}',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: 14.0, color: defaultColor),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Spacer(),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text('المبلغ المتبقي'),
+                                      SizedBox(
+                                        width: 5.0,
+                                      ),
+                                      Text(
+                                        '${model.require_amount}',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: 14.0, color: defaultColor),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                showToast(
+                                    text: 'مشاركة', state: ToastStates.WARNING);
+                              },
+                              icon: CircleAvatar(
+                                radius: 30.0,
+                                backgroundColor: Colors.grey,
+                                child: Icon(
+                                  Icons.share_sharp,
+                                  size: 22.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Spacer(),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20.0),
+                              child: Container(
+                                  color: Colors.green,
+                                  width: 250,
+                                  height: 40,
+                                  child: FlatButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      'تبرع',
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                  )),
                             ),
                             Spacer(),
                             IconButton(
-                                onPressed: () {
-                                  showToast(
-                                      text: 'التفاصيل',
-                                      state: ToastStates.WARNING);
-                                },
-                                icon: Icon(Icons.info_outline_rounded)),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 0.0, left: 12.0, right: 12.0, bottom: 2.0),
-                        child: Row(
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Column(
-                                  children: [
-                                    Text('تم الجمع '),
-                                    SizedBox(
-                                      width: 5.0,
-                                    ),
-                                    Text(
-                                      '${model.received_amount}',
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: 14.0, color: defaultColor),
-                                    ),
-                                  ],
+                              onPressed: () {
+                                // HomeCubit.get(context).changeFavorites(model.id);
+                              },
+                              icon: CircleAvatar(
+                                radius: 30.0,
+                                // backgroundColor:
+                                //     HomeCubit.get(context).favorites[model.id]!
+                                //         ? defaultColor
+                                //         : Colors.grey,
+                                child: Icon(
+                                  Icons.wallet_giftcard_rounded,
+                                  size: 22.0,
+                                  color: Colors.white,
                                 ),
-                              ],
-                            ),
-                            Spacer(),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Column(
-                                  children: [
-                                    Text('المبلغ المتبقي'),
-                                    SizedBox(
-                                      width: 5.0,
-                                    ),
-                                    Text(
-                                      '${model.require_amount}',
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: 14.0, color: defaultColor),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              showToast(
-                                  text: 'مشاركة', state: ToastStates.WARNING);
-                            },
-                            icon: CircleAvatar(
-                              radius: 30.0,
-                              backgroundColor: Colors.grey,
-                              child: Icon(
-                                Icons.share_sharp,
-                                size: 22.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20.0),
-                            child: Container(
-                                color: Colors.green,
-                                width: 250,
-                                height: 40,
-                                child: FlatButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    'تبرع',
-                                    style: TextStyle(
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                )),
-                          ),
-                          Spacer(),
-                          IconButton(
-                            onPressed: () {
-                              // HomeCubit.get(context).changeFavorites(model.id);
-                            },
-                            icon: CircleAvatar(
-                              radius: 30.0,
-                              // backgroundColor:
-                              //     HomeCubit.get(context).favorites[model.id]!
-                              //         ? defaultColor
-                              //         : Colors.grey,
-                              child: Icon(
-                                Icons.wallet_giftcard_rounded,
-                                size: 22.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-      );
+  );
 }

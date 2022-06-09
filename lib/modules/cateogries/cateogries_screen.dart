@@ -22,7 +22,7 @@ class CateogriesScreen extends StatelessWidget {
             itemBuilder: (context, index) => buildCatItem(
                 HomeCubit.get(context).categoryModel!.data.data[index],
                 context),
-            separatorBuilder: (context, index) => myDivider(),
+            separatorBuilder: (context, index) => SizedBox(height: 10,),
             itemCount: HomeCubit.get(context).categoryModel!.data.data.length,
           );
         });
@@ -33,33 +33,34 @@ class CateogriesScreen extends StatelessWidget {
           HomeCubit.get(context).getCategoriesDetailData(modelCa.id);
           navigateTo(context, CategoryProjectsScreen(modelCa.name));
         },
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image(
-                    image: NetworkImage(
-                        "https://d1qqr5712pvfjx.cloudfront.net/blobs/zm9r0utl6eehjitt3ham32lrye8d"),
-                    width: 80.0,
-                    height: 80.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(
-                  width: 20.0,
-                ),
-                Text(
-                  modelCa.name,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                ),
-                Spacer(),
-                Icon(Icons.arrow_forward_ios),
-              ],
-            ),
-          ),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Stack(
+                            children: [
+                              Image(
+                                image: NetworkImage(
+                                    "https://d1qqr5712pvfjx.cloudfront.net/blobs/zm9r0utl6eehjitt3ham32lrye8d"),
+                                width: double.infinity,
+                                height: 200,
+                                fit: BoxFit.cover,
+                              ),
+                              Container(
+                                width: double.infinity,
+                                height: 200,
+                                padding: EdgeInsets.all(10),
+                                alignment: Alignment.bottomCenter,
+                                child: Text(
+                                  '${modelCa.name}',
+                                  style: TextStyle(
+                                      fontSize: 30.0, color: Colors.white),
+                                ),
+                                color: Colors.black.withOpacity(0.2),
+                              ),
+                            ],
+                          ),
+                        ),
         ),
       );
 }

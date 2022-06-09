@@ -22,7 +22,9 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Scaffold(
+        return Scaffold(appBar: AppBar(
+         
+          ),
           body: state is ProjectLoadingState
               ? Center(
                   child: CircularProgressIndicator(),
@@ -109,7 +111,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                   Row(
                     children: [
                       Text(
-                        '${HomeCubit.get(context).title}',
+                        '${HomeCubit.get(context).titleP}',
                         textAlign: TextAlign.start,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -124,14 +126,15 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text('${modelC.name}'),
-                          ))
+                          )
+                          ),
                     ],
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    '${HomeCubit.get(context).description}',
+                    '${HomeCubit.get(context).descriptionP}',
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 17.0, color: Colors.grey),
                   ),
@@ -148,7 +151,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                   ),
                   SafeArea(
                     child: Container(
-                      color: Colors.grey[50],
+                      color: Colors.green[50],
                       height: 80,
                       width: double.infinity,
                       child: Column(
@@ -158,7 +161,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                             child: Row(
                               children: [
                                 Text(
-                                  '300 من 1000 ',
+                                  '${HomeCubit.get(context).receivedAmountP} من ${HomeCubit.get(context).requireAmountP} ',
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontSize: 15.0,
@@ -167,7 +170,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '% 30 ',
+                                  '${(HomeCubit.get(context).receivedAmountP! /HomeCubit.get(context).requireAmountP! *100).round() } % ',
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                       fontSize: 15.0,
@@ -184,7 +187,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                               lineHeight: 22.0,
                               isRTL: true,
                               animationDuration: 2500,
-                              percent: 0.8,
+                              percent: HomeCubit.get(context).receivedAmountP! /HomeCubit.get(context).requireAmountP!,
                               linearStrokeCap: LinearStrokeCap.roundAll,
                               progressColor: defaultColor,
                               backgroundColor: Colors.grey[100],
@@ -199,7 +202,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                   ),
                   SafeArea(
                     child: Container(
-                      color: Colors.grey[50],
+                      color: Colors.green[50],
                       width: double.infinity,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -258,7 +261,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                           ),
                           Center(
                             child: Text(
-                              'البريد الالكتروني ${modelA.email}',
+                              'البريد الالكتروني  ${modelA.email}',
                               textAlign: TextAlign.start,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -268,6 +271,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
+                          SizedBox(height: 20,)
                         ],
                       ),
                     ),
@@ -297,13 +301,13 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                         child: Container(
                           color: Colors.green,
                           width: 250,
-                          height: 40,
+                          height: 50,
                           child: FlatButton(
                             onPressed: () {},
                             child: Text(
                               'تبرع',
                               style: TextStyle(
-                                  fontSize: 15.0,
+                                  fontSize: 20.0,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),

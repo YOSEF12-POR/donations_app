@@ -4,7 +4,7 @@ const HOME ='home';
 const GET_CATEGORIES ='categories';
 
 
-const baseUrl ='http://46.60.64.242:5669/api/';
+const baseUrl ='http://86.104.190.71:5669/api/';
 
 
 

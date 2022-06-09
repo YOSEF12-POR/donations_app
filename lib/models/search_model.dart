@@ -1,89 +1,39 @@
-class SearchModel
-{
-  bool ?status;
-  String ?message;
-  Data ?data;
-  
-  SearchModel.fromJson(Map<String, dynamic> json)
-  {
+class SearchModel {
+  bool?status;
+  Null?message;
+  SearchData?data;
+  SearchModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ?  SearchData.fromJson(json['data']) : null;
   }
 }
 
-class Data {
-  int ?currentPage;
-  List<Product> ?data;
-  String ?firstPageUrl;
-  int ?from;
-  int ?lastPage;
-  String ?lastPageUrl;
-  String ?nextPageUrl;
-  String ?path;
-  int ?perPage;
-  String ?prevPageUrl;
-  int ?to;
-  int ?total;
+class SearchData {
+  List<ProjectS> data=[];
 
-  Data.fromJson(Map<String, dynamic> json) {
-    currentPage = json['current_page'];
+  SearchData.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
       json['data'].forEach((v) {
-        data?.add(new Product.fromJson(v));
+        data.add(ProjectS.fromJson(v));
       });
     }
-    firstPageUrl = json['first_page_url'];
-    from = json['from'];
-    lastPage = json['last_page'];
-    lastPageUrl = json['last_page_url'];
-    nextPageUrl = json['next_page_url'];
-    path = json['path'];
-    perPage = json['per_page'];
-    prevPageUrl = json['prev_page_url'];
-    to = json['to'];
-    total = json['total'];
+
   }
 }
 
-class Product {
-  int ?id;
-  dynamic? price;
-  dynamic ?oldPrice;
-  int? discount;
-  String ?image;
-  String ?name;
-  String ?description;
 
-  Product(
-      {required this.id,
-        required  this.price,
-        required this.oldPrice,
-        required this.discount,
-        required this.image,
-        required this.name,
-        required this.description});
+class ProjectS {
+  int?id;
+  dynamic association_id;
+  String?title;
+  String?description;
 
-  Product.fromJson(Map<String, dynamic> json) {
+  ProjectS.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    price = json['price'];
-    oldPrice = json['old_price'];
-    discount = json['discount'];
-    image = json['image'];
-    name = json['name'];
+    association_id = json['association_id'];
+    title = json['title'];
     description = json['description'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['price'] = this.price;
-    data['old_price'] = this.oldPrice;
-    data['discount'] = this.discount;
-    data['image'] = this.image;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    return data;
-  }
 }

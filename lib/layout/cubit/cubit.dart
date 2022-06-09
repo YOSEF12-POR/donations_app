@@ -61,7 +61,6 @@ class HomeCubit extends Cubit<HomeStates> {
       count_project = value.data['data']['count_project'];
       sum_received_amount = value.data['data']['sum_received_amount'];
       sum_num_beneficiaries = value.data['data']['sum_num_beneficiaries'];
-      
 
       List<dynamic> dataHome = value.data['data']['projects'];
 
@@ -73,7 +72,7 @@ class HomeCubit extends Cubit<HomeStates> {
       List<dynamic> dataHomeBanner = value.data['data']['banners'];
       dataHomeBanner.forEach((element) {
         BannerModel bannerModel = BannerModel.fromJson(element);
-        // log('${element}' , name: "element");
+        log('${element}', name: "element");
         bannersListH.add(bannerModel);
       });
 
@@ -83,34 +82,45 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(HomeErrorHomeDataState());
     });
   }
-  
+
   List<ProjectCategoryM> projrctCM = [];
   List<dynamic> dataPM = [];
-    List<ProjectAssociationM> projrctAM = [];
+  List<ProjectAssociationM> projrctAM = [];
   List<dynamic> dataPA = [];
-    String? title;
-  String? description;
+  String? titleP;
+  String? descriptionP;
+  int? requireAmountP;
+  int? receivedAmountP;
 
   void getProjectData(int? id) {
     emit(ProjectLoadingState());
-    DioHelper.getData(url:'projects/$id', token: token).then((value) {
-
-      log('${value.data['data']['duration_unit']}' , name: "1");
+    DioHelper.getData(url: 'projects/$id', token: token).then((value) {
+      projrctCM.length = 0;
+      dataPM.length = 0;
+      projrctAM.length = 0;
+      dataPA.length = 0;
+      titleP = '';
+      descriptionP = '';
+      requireAmountP = 0;
+      receivedAmountP = 0;
+      log('${value.data['data']['duration_unit']}', name: "1");
 
       dataPM = value.data['data']['category'];
       dataPA = value.data['data']['association'];
-title = value.data['data']['title'];
-description = value.data['data']['description'];
-
+      titleP = value.data['data']['title'];
+      descriptionP = value.data['data']['description'];
+      requireAmountP = value.data['data']['require_amount'];
+      receivedAmountP = value.data['data']['received_amount'];
       dataPM.forEach((element) {
         ProjectCategoryM projectCategoryM = ProjectCategoryM.fromJson(element);
-        log('${element}' , name: "element");
+        log('${element}', name: "element");
         projrctCM.add(projectCategoryM);
       });
 
-         dataPA.forEach((element) {
-        ProjectAssociationM projectAssociationM = ProjectAssociationM.fromJson(element);
-        log('${element}' , name: "element");
+      dataPA.forEach((element) {
+        ProjectAssociationM projectAssociationM =
+            ProjectAssociationM.fromJson(element);
+        log('${element}', name: "element");
         projrctAM.add(projectAssociationM);
       });
 
@@ -156,6 +166,4 @@ description = value.data['data']['description'];
       emit(HomeErrorCategoriesState());
     });
   }
-
-
 }
