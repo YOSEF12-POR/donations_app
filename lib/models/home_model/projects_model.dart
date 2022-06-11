@@ -29,7 +29,7 @@ class ProjectsDataModel {
   String? description;
   String? createdAt;
   String? updatedAt;
-  
+  String? image_path;
 
   ProjectsDataModel.fromJson(Map<String, dynamic> json) {
     json['category'].forEach((element) {
@@ -41,6 +41,8 @@ class ProjectsDataModel {
     });
 
     id = json['id'];
+        image_path = json['image_path'];
+
     associationId = json['association_id'];
     categoryId = json['category_id'];
     priceStock = json['price_stock'];

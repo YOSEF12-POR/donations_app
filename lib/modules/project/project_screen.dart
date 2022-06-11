@@ -70,7 +70,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                                                   .projrctAM[index],
                                               context)),
                               crossAxisSpacing: 1,
-                              childAspectRatio: 0.5,
+                              childAspectRatio: 0.4,
                               mainAxisSpacing: 1,
                             ),
                           ],
@@ -93,10 +93,10 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
               borderRadius: BorderRadius.circular(8),
               child: Image(
                 image: NetworkImage(
-                    "https://d1qqr5712pvfjx.cloudfront.net/blobs/zm9r0utl6eehjitt3ham32lrye8d"),
+                    "http://46.60.64.21:5669/${HomeCubit.get(context).image_pathP}"),
                 width: double.infinity,
                 height: 200,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
             SizedBox(
@@ -113,12 +113,11 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                       Text(
                         '${HomeCubit.get(context).titleP}',
                         textAlign: TextAlign.start,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontSize: 25.0,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
                             color: Colors.black,
-                            fontWeight: FontWeight.bold),
+                            ),
                       ),
                       Spacer(),
                       Container(

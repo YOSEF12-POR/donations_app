@@ -41,7 +41,7 @@ class CateogriesScreen extends StatelessWidget {
                             children: [
                               Image(
                                 image: NetworkImage(
-                                    "https://d1qqr5712pvfjx.cloudfront.net/blobs/zm9r0utl6eehjitt3ham32lrye8d"),
+                                    "http://46.60.64.21:5669/${modelCa.imagePath}"),
                                 width: double.infinity,
                                 height: 200,
                                 fit: BoxFit.cover,

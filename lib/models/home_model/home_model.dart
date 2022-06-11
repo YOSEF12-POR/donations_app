@@ -62,6 +62,8 @@ class ProjectsModel {
   String? title;
     dynamic? require_amount;
   dynamic? received_amount;
+    String? image_path;
+
 
 
   ProjectsModel.fromJson(Map<String, dynamic> json) {
@@ -69,6 +71,8 @@ class ProjectsModel {
     categoryId = json['category_id'];
     description = json['description'];
     title = json['title'];
+        image_path = json['image_path'];
+
     require_amount = json['require_amount'];
     received_amount = json['received_amount'];
   }

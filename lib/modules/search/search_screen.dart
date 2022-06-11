@@ -114,7 +114,7 @@ class SearchScreen extends StatelessWidget {
                     children: [           
                       Image(
                         image: NetworkImage(
-                            "https://d1qqr5712pvfjx.cloudfront.net/blobs/zm9r0utl6eehjitt3ham32lrye8d"),
+                             "http://46.60.64.21:5669/${model.image_path}"),
                         width: double.infinity,
                         height: 210,
                         fit: BoxFit.cover,
@@ -149,7 +149,7 @@ class SearchScreen extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Text(
-                                      '300 من 1000 ',
+                                     '${model.received_amount} من ${model.require_amount} ',
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontSize: 15.0,
@@ -158,7 +158,7 @@ class SearchScreen extends StatelessWidget {
                                     ),
                                     Spacer(),
                                     Text(
-                                      ' ',
+                                      '${(model.received_amount / model.require_amount * 100).round()} % ',
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                           fontSize: 15.0,
@@ -175,7 +175,7 @@ class SearchScreen extends StatelessWidget {
                                   lineHeight: 22.0,
                                   isRTL: true,
                                   animationDuration: 2500,
-                                  percent: 0.8,
+                                  percent:  model.received_amount / model.require_amount,
                                   linearStrokeCap: LinearStrokeCap.roundAll,
                                   progressColor: defaultColor,
                                   backgroundColor: Colors.grey[100],

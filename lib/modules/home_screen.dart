@@ -101,10 +101,8 @@ class HomeScreen extends StatelessWidget {
                   .map(
                     (e) => InkWell(
                       onTap: () {
-                        HomeCubit.get(context)
-                            .getCategoriesDetailData(e.id);
-                        navigateTo(
-                            context, CategoryProjectsScreen(e.name));
+                        HomeCubit.get(context).getCategoriesDetailData(e.id);
+                        navigateTo(context, CategoryProjectsScreen(e.name));
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
@@ -112,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Image(
                               image: NetworkImage(
-                                  "https://d1qqr5712pvfjx.cloudfront.net/blobs/zm9r0utl6eehjitt3ham32lrye8d"),
+                                  "http://46.60.64.21:5669/${e.imagePath}"),
                               width: 350,
                               height: 200,
                               fit: BoxFit.cover,
@@ -219,9 +217,10 @@ class HomeScreen extends StatelessWidget {
                         height: 10.0,
                       ),
                       Text(
-                        'مكارم الخير في أرقام',
+                        'معاً نحيا في أرقام',
                         style: TextStyle(
                           fontSize: 20.0,
+                          fontFamily: 'Jannah',
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -405,12 +404,12 @@ class HomeScreen extends StatelessWidget {
       );
 
   Widget buildProjects(ProjectsModel model, context) => InkWell(
-   onTap: () {
-        HomeCubit.get(context).getProjectData(model.id);
-        print(model.title);
-        navigateTo(context, ProjectsDetails());
-      },
-    child: Container(
+        onTap: () {
+          HomeCubit.get(context).getProjectData(model.id);
+          print(model.title);
+          navigateTo(context, ProjectsDetails());
+        },
+        child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
@@ -440,7 +439,7 @@ class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     child: Image(
                       image: NetworkImage(
-                          "https://d1qqr5712pvfjx.cloudfront.net/blobs/zm9r0utl6eehjitt3ham32lrye8d"),
+                         "http://46.60.64.21:5669/${model.image_path}"),
                       width: double.infinity,
                       height: 200,
                       fit: BoxFit.cover,
@@ -522,7 +521,8 @@ class HomeScreen extends StatelessWidget {
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                            fontSize: 14.0, color: defaultColor),
+                                            fontSize: 14.0,
+                                            color: defaultColor),
                                       ),
                                     ],
                                   ),
@@ -544,7 +544,8 @@ class HomeScreen extends StatelessWidget {
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                            fontSize: 14.0, color: defaultColor),
+                                            fontSize: 14.0,
+                                            color: defaultColor),
                                       ),
                                     ],
                                   ),
@@ -616,5 +617,5 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-  );
+      );
 }

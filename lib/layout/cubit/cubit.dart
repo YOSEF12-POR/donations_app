@@ -91,6 +91,7 @@ class HomeCubit extends Cubit<HomeStates> {
   String? descriptionP;
   int? requireAmountP;
   int? receivedAmountP;
+  String? image_pathP;
 
   void getProjectData(int? id) {
     emit(ProjectLoadingState());
@@ -103,11 +104,17 @@ class HomeCubit extends Cubit<HomeStates> {
       descriptionP = '';
       requireAmountP = 0;
       receivedAmountP = 0;
+      image_pathP = '';
       log('${value.data['data']['duration_unit']}', name: "1");
 
       dataPM = value.data['data']['category'];
       dataPA = value.data['data']['association'];
       titleP = value.data['data']['title'];
+       image_pathP = value.data['data']['image_path'];
+
+        log('${image_pathP}', name: "image_pathP");
+        log('${titleP}', name: "titleP");
+
       descriptionP = value.data['data']['description'];
       requireAmountP = value.data['data']['require_amount'];
       receivedAmountP = value.data['data']['received_amount'];

@@ -25,15 +25,24 @@ class SearchData {
 
 class ProjectS {
   int?id;
-  dynamic association_id;
+  dynamic? association_id;
   String?title;
   String?description;
+  String?image_path;
+    dynamic? require_amount;
+  dynamic? received_amount;
+
+
 
   ProjectS.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     association_id = json['association_id'];
     title = json['title'];
     description = json['description'];
+
+     image_path = json['image_path'];
+      received_amount = json['received_amount'];
+       require_amount = json['require_amount'];
   }
 
 }
