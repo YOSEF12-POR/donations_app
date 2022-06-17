@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
@@ -7,6 +5,7 @@ import 'package:donations_app/models/category/categories_model.dart';
 import 'package:donations_app/models/home_model/home_model.dart';
 import 'package:donations_app/modules/cateogries/category_projects_screen.dart';
 import 'package:donations_app/modules/cateogries/cateogries_screen.dart';
+import 'package:donations_app/modules/payment/payment_screen.dart';
 import 'package:donations_app/modules/project/project_screen.dart';
 import 'package:donations_app/modules/search/search_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
@@ -109,8 +108,8 @@ class HomeScreen extends StatelessWidget {
                         child: Stack(
                           children: [
                             Image(
-                              image: NetworkImage(
-                                  "http://46.60.64.21:5669/${e.imagePath}"),
+                              image:
+                                  NetworkImage("${baseUrlImage}${e.imagePath}"),
                               width: 350,
                               height: 200,
                               fit: BoxFit.cover,
@@ -438,8 +437,7 @@ class HomeScreen extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image(
-                      image: NetworkImage(
-                         "http://46.60.64.21:5669/${model.image_path}"),
+                      image: NetworkImage("${baseUrlImage}${model.image_path}"),
                       width: double.infinity,
                       height: 200,
                       fit: BoxFit.cover,
@@ -459,7 +457,8 @@ class HomeScreen extends StatelessWidget {
                             lineHeight: 22.0,
                             isRTL: true,
                             animationDuration: 2500,
-                            percent: model.received_amount / model.require_amount,
+                            percent:
+                                model.received_amount / model.require_amount,
                             center: Text(
                               '${(model.received_amount / model.require_amount * 100).round()} % ',
                               textAlign: TextAlign.center,
@@ -529,6 +528,22 @@ class HomeScreen extends StatelessWidget {
                                 ],
                               ),
                               Spacer(),
+                              Container(
+                                width: 130,
+                                height: 50,
+                                child: defaultFormFiled(
+                                    controller: amountController,
+                                    type: TextInputType.number,
+                                    validate: (value) {
+                                      if (value.isEmpty) {
+                                        return 'ادخل المبلغ المراد التبرع به ';
+                                      }
+                                      return null;
+                                    },
+                                    label: 'المبلغ',
+                                    prefix: Icons.email),
+                              ),
+                              Spacer(),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -540,7 +555,7 @@ class HomeScreen extends StatelessWidget {
                                         width: 5.0,
                                       ),
                                       Text(
-                                        '${model.require_amount}',
+                                        '${model.require_amount - model.received_amount}',
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -575,19 +590,21 @@ class HomeScreen extends StatelessWidget {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(20.0),
                               child: Container(
-                                  color: Colors.green,
-                                  width: 250,
-                                  height: 40,
-                                  child: FlatButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      'تبرع',
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                  )),
+                                color: Colors.green,
+                                width: 250,
+                                height: 40,
+                                child: defaultButton(
+                                    text: 'تبرع',
+                                    function: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PYMENTSCREEN(
+                                                      amountController.text,
+                                                      model.id)));
+                                    }),
+                              ),
                             ),
                             Spacer(),
                             IconButton(

@@ -2,9 +2,11 @@ const LOGIN ='login';
 const REGISTER ='register';
 const HOME ='home';
 const GET_CATEGORIES ='categories';
+const PAYMENT ='payments/create';
 
 
-const baseUrl ='http://46.60.64.21:5669/api/';
+const baseUrl ='http://46.60.64.246:5669/api/';
+const baseUrlImage ='http://46.60.64.246:5669/';
 
 
 

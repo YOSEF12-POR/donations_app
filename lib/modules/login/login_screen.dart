@@ -148,7 +148,8 @@ class LoginScreen extends StatelessWidget {
                                       
                                       );
                                 }
-                              }),
+                              }
+                              ),
                           fallback: (context) =>
                               Center(child: CircularProgressIndicator()),
                         ),

@@ -5,6 +5,7 @@ import 'package:donations_app/modules/project/project_screen.dart';
 import 'package:donations_app/modules/search/cubit/cubit.dart';
 import 'package:donations_app/modules/search/cubit/state.dart';
 import 'package:donations_app/shared/components/componets.dart';
+import 'package:donations_app/shared/network/end_points.dart';
 import 'package:donations_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +42,7 @@ class SearchScreen extends StatelessWidget {
                       onSubmitt: (String text) {
                         SearchCubit.get(context).search(text);
                       },
-                      label: 'Search',
+                      label: 'بحث',
                       prefix: Icons.search,
                     ),
                     SizedBox(
@@ -114,7 +115,7 @@ class SearchScreen extends StatelessWidget {
                     children: [           
                       Image(
                         image: NetworkImage(
-                             "http://46.60.64.21:5669/${model.image_path}"),
+                             "${baseUrlImage}${model.image_path}"),
                         width: double.infinity,
                         height: 210,
                         fit: BoxFit.cover,

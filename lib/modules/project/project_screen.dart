@@ -2,6 +2,7 @@ import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
 import 'package:donations_app/models/home_model/projects_model.dart';
 import 'package:donations_app/shared/components/componets.dart';
+import 'package:donations_app/shared/network/end_points.dart';
 import 'package:donations_app/shared/styles/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +94,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
               borderRadius: BorderRadius.circular(8),
               child: Image(
                 image: NetworkImage(
-                    "http://46.60.64.21:5669/${HomeCubit.get(context).image_pathP}"),
+                    "${baseUrlImage}${HomeCubit.get(context).image_pathP}"),
                 width: double.infinity,
                 height: 200,
                 fit: BoxFit.fill,

@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yosefayman.donations_app">
    <application
+        android:usesCleartextTraffic="true"
         android:label="معاً نحيا"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

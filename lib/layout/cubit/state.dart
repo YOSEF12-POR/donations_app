@@ -52,4 +52,10 @@ class CategoryDetailsSuccessState extends HomeStates{}
 class CategoryDetailsErrorState extends HomeStates{}
 
 
+class PaymentLoadingState extends HomeStates{}
+class PaymentSuccessState extends HomeStates{}
+class PaymentErrorState extends HomeStates{
+    final String error;
+  PaymentErrorState(this.error);
+}
 

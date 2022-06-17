@@ -174,3 +174,17 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 }
+
+
+// void getpaymentdata() {
+//     DioHelper.getData(
+//       url: '/payments/create/',
+//       token: token,
+   
+//     ).then((value) {
+
+//     }).catchError((error) {
+//       print(error.toString());
+//     });
+//   }
+
