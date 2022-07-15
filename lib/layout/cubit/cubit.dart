@@ -8,9 +8,9 @@ import 'package:donations_app/models/home_model/projects_model.dart';
 
 import 'package:donations_app/models/home_model/home_model.dart';
 import 'package:donations_app/models/login_model/login_model.dart';
-import 'package:donations_app/modules/account/account_screen.dart';
 import 'package:donations_app/modules/home_screen.dart';
 import 'package:donations_app/modules/cateogries/cateogries_screen.dart';
+import 'package:donations_app/modules/project_comp/project_comp.dart';
 import 'package:donations_app/modules/settings/settings_screen.dart';
 import 'package:donations_app/shared/components/constants.dart';
 import 'package:donations_app/shared/network/end_points.dart';
@@ -33,6 +33,8 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<ProjectsModel> projectsListH = [];
   List<BannerModel> bannersListH = [];
+    List<ImagesModel> imagesmodelP = [];
+
   List<Projects> projectsList = [];
   List<dynamic> data = [];
 
@@ -43,7 +45,7 @@ class HomeCubit extends Cubit<HomeStates> {
   List<Widget> bottomScreens = [
     HomeScreen(),
     CateogriesScreen(),
-    AccountScreen(),
+    ProjectComp(),
     SettingsScreen(),
   ];
 
@@ -63,11 +65,13 @@ class HomeCubit extends Cubit<HomeStates> {
       sum_num_beneficiaries = value.data['data']['sum_num_beneficiaries'];
 
       List<dynamic> dataHome = value.data['data']['projects'];
-
       dataHome.forEach((element) {
         ProjectsModel projectsHome = ProjectsModel.fromJson(element);
+         log('${element}', name: "element");
+
         projectsListH.add(projectsHome);
       });
+
 
       List<dynamic> dataHomeBanner = value.data['data']['banners'];
       dataHomeBanner.forEach((element) {
@@ -124,6 +128,13 @@ class HomeCubit extends Cubit<HomeStates> {
         projrctCM.add(projectCategoryM);
       });
 
+         List<dynamic> imagesmodell = value.data['data']['projects_paths'];
+      imagesmodell.forEach((element) {
+        ImagesModel imagesModel = ImagesModel.fromJson(element);
+        log('${element}', name: "element");
+        imagesmodelP.add(imagesModel);
+      });
+
       dataPA.forEach((element) {
         ProjectAssociationM projectAssociationM =
             ProjectAssociationM.fromJson(element);
@@ -172,19 +183,7 @@ class HomeCubit extends Cubit<HomeStates> {
       print(error.toString());
       emit(HomeErrorCategoriesState());
     });
-  }
-}
+  }}
 
 
-// void getpaymentdata() {
-//     DioHelper.getData(
-//       url: '/payments/create/',
-//       token: token,
-   
-//     ).then((value) {
-
-//     }).catchError((error) {
-//       print(error.toString());
-//     });
-//   }
 

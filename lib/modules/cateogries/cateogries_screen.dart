@@ -17,14 +17,42 @@ class CateogriesScreen extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          return ListView.separated(
-            physics: BouncingScrollPhysics(),
-            itemBuilder: (context, index) => buildCatItem(
-                HomeCubit.get(context).categoryModel!.data.data[index],
-                context),
-            separatorBuilder: (context, index) => SizedBox(height: 10,),
-            itemCount: HomeCubit.get(context).categoryModel!.data.data.length,
-          );
+          return Scaffold(
+              body: state is HomeLoadingHomeDataState
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : HomeCubit.get(context).bannersListH.length == 0
+                      ? Center(child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Image.asset('assets/images/no.png'),
+                            Text(
+                              'انْتَظِرْ قَليلاً!',
+                              style: TextStyle(fontSize: 45, fontFamily: 'Jannah',),
+                            ),
+                          ],
+                        ),
+                      ),
+                        )
+                      : ListView.separated(
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (context, index) => buildCatItem(
+                              HomeCubit.get(context)
+                                  .categoryModel!
+                                  .data
+                                  .data[index],
+                              context),
+                          separatorBuilder: (context, index) => SizedBox(
+                            height: 10,
+                          ),
+                          itemCount: HomeCubit.get(context)
+                              .categoryModel!
+                              .data
+                              .data
+                              .length,
+                        ));
         });
   }
 
@@ -36,31 +64,29 @@ class CateogriesScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Stack(
-                            children: [
-                              Image(
-                                image: NetworkImage(
-                                    "${baseUrlImage}${modelCa.imagePath}"),
-                                width: double.infinity,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
-                              Container(
-                                width: double.infinity,
-                                height: 200,
-                                padding: EdgeInsets.all(10),
-                                alignment: Alignment.bottomCenter,
-                                child: Text(
-                                  '${modelCa.name}',
-                                  style: TextStyle(
-                                      fontSize: 30.0, color: Colors.white),
-                                ),
-                                color: Colors.black.withOpacity(0.2),
-                              ),
-                            ],
-                          ),
-                        ),
+            borderRadius: BorderRadius.circular(10),
+            child: Stack(
+              children: [
+                Image(
+                  image: NetworkImage("${baseUrlImage}${modelCa.imagePath}"),
+                  width: double.infinity,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 200,
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    '${modelCa.name}',
+                    style: TextStyle(fontSize: 30.0, color: Colors.white),
+                  ),
+                  color: Colors.black.withOpacity(0.2),
+                ),
+              ],
+            ),
+          ),
         ),
       );
 }

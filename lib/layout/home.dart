@@ -46,7 +46,7 @@ class HomeLayout extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: Icon(Icons.apps), label: 'الأقسام'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.account_balance_wallet_outlined), label: 'حسابي'),
+                  icon: Icon(Icons.download_done_rounded), label: 'المشاريع '),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: 'الإعدادت'),
             ],

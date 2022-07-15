@@ -1,3 +1,5 @@
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
 import 'package:donations_app/models/home_model/projects_model.dart';
@@ -69,6 +71,8 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                                                   .projrctCM[index],
                                               HomeCubit.get(context)
                                                   .projrctAM[index],
+                                                   HomeCubit.get(context)
+                                                  .imagesmodelP[index],
                                               context)),
                               crossAxisSpacing: 1,
                               childAspectRatio: 0.4,
@@ -84,20 +88,47 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
   }
 
   Widget projectItemBuilder(
-      ProjectCategoryM modelC, ProjectAssociationM modelA, context) {
+      ProjectCategoryM modelC, ProjectAssociationM modelA,ImagesModel modelI ,context) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
         child: Column(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image(
-                image: NetworkImage(
-                    "${baseUrlImage}${HomeCubit.get(context).image_pathP}"),
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.fill,
+            CarouselSlider(
+              items: HomeCubit.get(context)
+                  .imagesmodelP
+                  .map(
+                    (e) => Stack(
+                      children: [
+                        Image(
+                          image:
+                              NetworkImage("${baseUrlImage}${e.imagePath}"),
+                          width: double.infinity,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 200,
+                          padding: EdgeInsets.all(10),
+                          alignment: Alignment.bottomCenter,
+                        
+                          color: Colors.black.withOpacity(0.2),
+                        ),
+                      ],
+                    ),
+                  )
+                  .toList(),
+              options: CarouselOptions(
+                viewportFraction: 1,
+                initialPage: 0,
+                reverse: false,
+                // autoPlay: true,
+                // autoPlayInterval: Duration(seconds: 4),
+                // autoPlayAnimationDuration: Duration(seconds: 1),
+                // autoPlayCurve: Curves.fastOutSlowIn,
+                // enlargeCenterPage: true,
+                scrollDirection: Axis.horizontal,
               ),
             ),
             SizedBox(
@@ -111,15 +142,22 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        '${HomeCubit.get(context).titleP}',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            ),
+                      SizedBox(
+                        child: Container(
+                          width: 300,
+                          child: Text(
+                            '${HomeCubit.get(context).titleP}',
+                            maxLines: 2,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                ),
+                          ),
+                        ),
                       ),
+                      
                       Spacer(),
                       Container(
                           color: Colors.green[50],
@@ -129,9 +167,10 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                           )
                           ),
                     ],
+                    
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 12,
                   ),
                   Text(
                     '${HomeCubit.get(context).descriptionP}',

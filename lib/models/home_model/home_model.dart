@@ -11,13 +11,10 @@ class HomeModel {
 class HomeDataModel {
   List<BannerModel> banners = [];
   List<ProjectsModel> Projects = [];
- 
 
-int? count_project = 0; 
-int? sum_received_amount = 0;
-int? sum_num_beneficiaries = 0;
-
-
+  int? count_project = 0;
+  int? sum_received_amount = 0;
+  int? sum_num_beneficiaries = 0;
 
   HomeDataModel.fromJson(Map<String, dynamic> json) {
     json['banners'].forEach((element) {
@@ -28,16 +25,11 @@ int? sum_num_beneficiaries = 0;
       Projects.add(ProjectsModel.fromJson(element));
     });
 
-
     count_project = json['count_project'];
     sum_received_amount = json['sum_received_amount'];
     sum_num_beneficiaries = json['sum_num_beneficiaries'];
-
   }
 }
-
-
-
 
 class BannerModel {
   int? id;
@@ -60,19 +52,16 @@ class ProjectsModel {
   int? categoryId;
   String? description;
   String? title;
-    dynamic? require_amount;
+  dynamic? require_amount;
   dynamic? received_amount;
-    String? image_path;
-
-
+  String? image_path;
 
   ProjectsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     categoryId = json['category_id'];
     description = json['description'];
     title = json['title'];
-        image_path = json['image_path'];
-
+    image_path = json['image_path'];
     require_amount = json['require_amount'];
     received_amount = json['received_amount'];
   }

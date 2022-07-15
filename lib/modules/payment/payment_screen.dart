@@ -1,4 +1,5 @@
 import 'package:donations_app/shared/components/constants.dart';
+import 'package:donations_app/shared/network/end_points.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -20,9 +21,10 @@ class _PYMENTSCREENState extends State<PYMENTSCREEN> {
         onPageFinished: (page){},
         javascriptMode: JavascriptMode.unrestricted,
         
-        initialUrl: 'http://46.60.64.246:5669/api/paymentsWithoutAuth/create/${widget.project_id}/${widget.amountController}',
+        initialUrl: '$ip:5669/api/paymentsWithoutAuth/create/${widget.project_id}/${widget.amountController}',
         
       ),
+      
     );
   }
 }

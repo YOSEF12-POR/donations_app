@@ -5,9 +5,9 @@ const GET_CATEGORIES ='categories';
 const PAYMENT ='payments/create';
 
 
-const baseUrl ='http://46.60.64.246:5669/api/';
-const baseUrlImage ='http://46.60.64.246:5669/';
-
+const baseUrl ='$ip:5669/api/';
+const baseUrlImage ='$ip:5669/';
+const ip = 'http://158.140.115.143' ;
 
 
 

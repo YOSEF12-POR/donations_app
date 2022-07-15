@@ -13,11 +13,15 @@ import 'package:donations_app/shared/network/end_points.dart';
 import 'package:donations_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class HomeScreen extends StatelessWidget {
   var amountController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+  Future <void> _handRefresh()async{
+    return await Future.delayed(Duration(seconds: 2));
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
@@ -36,53 +40,76 @@ class HomeScreen extends StatelessWidget {
                 )
               : HomeCubit.get(context).bannersListH.length == 0
                   ? Center(
-                      child: Text(
-                        'انْتَظِرْ قَليلاً',
-                        style: TextStyle(fontSize: 50),
-                      ),
-                    )
-                  : SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
+                      // child: Text(
+                      //   'انْتَظِرْ قَليلاً',
+                      //   style: TextStyle(fontSize: 50),
+                      // ),
                       child: Container(
-                        color: Colors.white,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            GridView.count(
-                              crossAxisCount: 1,
-                              shrinkWrap: true,
-                              physics: BouncingScrollPhysics(),
-                              children: List.generate(
-                                  HomeCubit.get(context).projectsListH.length,
-                                  (index) => HomeCubit.get(context)
-                                              .bannersListH
-                                              .length ==
-                                          0
-                                      ? Center(
-                                          child: Text(
-                                            'انْتَظِرْ قَليلاً',
-                                            style: TextStyle(fontSize: 50),
-                                          ),
-                                        )
-                                      : buliderWidget(
-                                          HomeCubit.get(context)
-                                              .bannersListH[index],
-                                          HomeCubit.get(context)
-                                              .projectsListH[index],
-                                          context)),
-                              crossAxisSpacing: 2,
-                              childAspectRatio: 0.632,
-                              mainAxisSpacing: 2,
-                            ),
-                            SizedBox(
-                              height: 25.0,
+                            // Image.asset('assets/images/no.png'),
+                            Text(
+                              'انْتَظِرْ قَليلاً!',
+                              style: TextStyle(
+                                fontSize: 45,
+                                fontFamily: 'Jannah',
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ),
+                    )
+                  : LiquidPullToRefresh(
+                    onRefresh: _handRefresh,
+                    color: Colors.green,
+                    height: 300,
+                    backgroundColor: Colors.grey[50],
+                    animSpeedFactor: 2,
+                    showChildOpacityTransition: true,
+                    child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
+                        child: Container(
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              GridView.count(
+                                crossAxisCount: 1,
+                                shrinkWrap: true,
+                                physics: BouncingScrollPhysics(),
+                                children: List.generate(
+                                    HomeCubit.get(context).projectsListH.length,
+                                    (index) => HomeCubit.get(context)
+                                                .bannersListH
+                                                .length ==
+                                            0
+                                        ? Center(
+                                            child: Text(
+                                              'انْتَظِرْ قَليلاً',
+                                              style: TextStyle(fontSize: 50),
+                                            ),
+                                          )
+                                        : buliderWidget(
+                                            HomeCubit.get(context)
+                                                .bannersListH[index],
+                                            HomeCubit.get(context)
+                                                .projectsListH[index],
+                                            context)),
+                                crossAxisSpacing: 2,
+                                childAspectRatio: 0.632,
+                                mainAxisSpacing: 2,
+                              ),
+                              SizedBox(
+                                height: 25.0,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ),
         );
       },
     );
@@ -528,21 +555,21 @@ class HomeScreen extends StatelessWidget {
                                 ],
                               ),
                               Spacer(),
-                              Container(
-                                width: 130,
-                                height: 50,
-                                child: defaultFormFiled(
-                                    controller: amountController,
-                                    type: TextInputType.number,
-                                    validate: (value) {
-                                      if (value.isEmpty) {
-                                        return 'ادخل المبلغ المراد التبرع به ';
-                                      }
-                                      return null;
-                                    },
-                                    label: 'المبلغ',
-                                    prefix: Icons.email),
-                              ),
+                              // Container(
+                              //   width: 130,
+                              //   height: 50,
+                              //   child: defaultFormFiled(
+                              //       controller: amountController,
+                              //       type: TextInputType.number,
+                              //       validate: (value) {
+                              //         if (value.isEmpty) {
+                              //           return 'ادخل المبلغ المراد التبرع به ';
+                              //         }
+                              //         return null;
+                              //       },
+                              //       label: 'المبلغ',
+                              //       prefix: Icons.email),
+                              // ),
                               Spacer(),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -596,13 +623,55 @@ class HomeScreen extends StatelessWidget {
                                 child: defaultButton(
                                     text: 'تبرع',
                                     function: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  PYMENTSCREEN(
-                                                      amountController.text,
-                                                      model.id)));
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => Container(
+                                          
+                                          
+                                          child: AlertDialog(
+                                            title: Text('تبرع'),
+                                            content: Column(
+                                              children: [
+                                                Text(
+                                                    'ادخل المبلغ المراد التبرع به '),
+                                                defaultFormFiled(
+                                                    controller:
+                                                        amountController,
+                                                    type: TextInputType.number,
+                                                    validate: (value) {
+                                                      if (value.isEmpty) {
+                                                        return 'ادخل المبلغ المراد التبرع به ';
+                                                      }
+                                                      return null;
+                                                    },
+                                                    label: 'المبلغ',
+                                                    prefix: Icons.email),
+                                              ],
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                child: Text('تراجع'),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: Text('موافق'),
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              PYMENTSCREEN(
+                                                                  amountController
+                                                                      .text,
+                                                                  model.id)));
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
                                     }),
                               ),
                             ),

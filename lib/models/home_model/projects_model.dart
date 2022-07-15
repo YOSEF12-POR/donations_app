@@ -1,18 +1,18 @@
 class ProjectsDetailsModel {
   late bool status;
-  ProjectsDataModel ? data;
+  ProjectsDataModel? data;
 
   ProjectsDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    data = json['data'] != null ? ProjectsDataModel.fromJson(json['data']) : null;
+    data =
+        json['data'] != null ? ProjectsDataModel.fromJson(json['data']) : null;
   }
-
 }
 
 class ProjectsDataModel {
-
   List<ProjectCategoryM> category = [];
   List<ProjectAssociationM> association = [];
+  List<ImagesModel> images = [];
 
   int? id;
   int? associationId;
@@ -40,8 +40,12 @@ class ProjectsDataModel {
       association.add(ProjectAssociationM.fromJson(element));
     });
 
+    json['projects_paths'].forEach((element) {
+      images.add(ImagesModel.fromJson(element));
+    });
+
     id = json['id'];
-        image_path = json['image_path'];
+    image_path = json['image_path'];
 
     associationId = json['association_id'];
     categoryId = json['category_id'];
@@ -57,9 +61,20 @@ class ProjectsDataModel {
     description = json['description'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+  }
+}
 
+class ImagesModel {
+  int? id;
+  String? name;
+  String? imagePath;
+  int? project_id;
 
-
+  ImagesModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    project_id = json['project_id'];
+    imagePath = json['image_path'];
   }
 }
 
@@ -80,11 +95,9 @@ class ProjectCategoryM {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
-  }
+}
 
-
-
-  class ProjectAssociationM {
+class ProjectAssociationM {
   int? id;
   String? name;
   String? address;
@@ -98,5 +111,4 @@ class ProjectCategoryM {
     address = json['address'];
     email = json['email'];
   }
-  }
-
+}

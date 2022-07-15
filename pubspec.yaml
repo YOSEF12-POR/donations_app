@@ -39,6 +39,7 @@ dependencies:
   conditional_builder_null_safety: ^0.0.6
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
+  flutter_offline: ^2.1.0
   modal_progress_hud_nsn: ^0.1.0-nullsafety-1
   dio: ^4.0.6
   hexcolor: ^2.0.6
@@ -53,7 +54,7 @@ dependencies:
   splash_screen_view: ^3.0.0
   device_info_plus: ^3.2.3
   flutter_inappwebview: ^5.4.3+7
-  
+  liquid_pull_to_refresh: ^3.0.1
 
   flutter_localizations: # Add this line
     sdk: flutter        
