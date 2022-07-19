@@ -8,12 +8,16 @@ import 'package:donations_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
   // const SettingsScreen({ Key? key }) : super(key: key);
   var formKey = GlobalKey<FormState>();
 
   // var nameContorller = TextEditingController();
-  // var emailContorller = TextEditingController();
   var passwContorller = TextEditingController();
 
   @override
@@ -21,6 +25,10 @@ class SettingsScreen extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        pr_name = HomeCubit.get(context).profile_name;
+        pr_email = HomeCubit.get(context).profile_email;
+
+        // print(pr_name);
         return Scaffold(
           body: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
@@ -72,7 +80,7 @@ class SettingsScreen extends StatelessWidget {
                                         width: 5,
                                       ),
                                       Text(
-                                        'Yosef Ayman',
+                                       '${HomeCubit.get(context).profile_name}',
                                         style: TextStyle(
                                           fontSize: 19,
                                         ),
@@ -120,7 +128,7 @@ class SettingsScreen extends StatelessWidget {
                                         width: 5,
                                       ),
                                       Text(
-                                        'Yosef@gmail.com',
+                                         '${HomeCubit.get(context).profile_email}',
                                         style: TextStyle(
                                           fontSize: 19,
                                         ),

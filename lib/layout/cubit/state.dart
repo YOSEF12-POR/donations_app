@@ -59,3 +59,25 @@ class PaymentErrorState extends HomeStates{
   PaymentErrorState(this.error);
 }
 
+class ProfileLoadingState extends HomeStates{}
+class ProfileSuccessState extends HomeStates {}
+class ProfileErrorState extends HomeStates{}
+
+
+class UserDataLoadingState extends HomeStates{}
+
+class UserDataSuccessState extends HomeStates{
+  final LoginModel?userModel;
+
+  UserDataSuccessState(this.userModel);
+}
+
+class UserDataErrorState extends HomeStates{}
+
+
+
+
+
+class LoadingProjectsCompState extends HomeStates{}
+class SuccessProjectsCompState extends HomeStates{}
+class ErrorProjectsCompState extends HomeStates{}

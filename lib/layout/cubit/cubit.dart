@@ -8,6 +8,8 @@ import 'package:donations_app/models/home_model/projects_model.dart';
 
 import 'package:donations_app/models/home_model/home_model.dart';
 import 'package:donations_app/models/login_model/login_model.dart';
+import 'package:donations_app/models/profile_model/profile_model.dart';
+import 'package:donations_app/models/projectcomp_mode/projectcomp_model.dart';
 import 'package:donations_app/modules/home_screen.dart';
 import 'package:donations_app/modules/cateogries/cateogries_screen.dart';
 import 'package:donations_app/modules/project_comp/project_comp.dart';
@@ -18,6 +20,8 @@ import 'package:donations_app/shared/network/remote/dio_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:convert';
+
+import 'package:sqflite/sql.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
@@ -33,7 +37,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<ProjectsModel> projectsListH = [];
   List<BannerModel> bannersListH = [];
-    List<ImagesModel> imagesmodelP = [];
+  List<ImagesModel> imagesmodelP = [];
 
   List<Projects> projectsList = [];
   List<dynamic> data = [];
@@ -41,6 +45,10 @@ class HomeCubit extends Cubit<HomeStates> {
   int? count_project = 0;
   int? sum_received_amount = 0;
   int? sum_num_beneficiaries = 0;
+
+  String? profile_name = '';
+  String? profile_email= '';
+  String? old_password= '';
 
   List<Widget> bottomScreens = [
     HomeScreen(),
@@ -67,16 +75,13 @@ class HomeCubit extends Cubit<HomeStates> {
       List<dynamic> dataHome = value.data['data']['projects'];
       dataHome.forEach((element) {
         ProjectsModel projectsHome = ProjectsModel.fromJson(element);
-         log('${element}', name: "element");
 
         projectsListH.add(projectsHome);
       });
 
-
       List<dynamic> dataHomeBanner = value.data['data']['banners'];
       dataHomeBanner.forEach((element) {
         BannerModel bannerModel = BannerModel.fromJson(element);
-        log('${element}', name: "element");
         bannersListH.add(bannerModel);
       });
 
@@ -109,36 +114,30 @@ class HomeCubit extends Cubit<HomeStates> {
       requireAmountP = 0;
       receivedAmountP = 0;
       image_pathP = '';
-      log('${value.data['data']['duration_unit']}', name: "1");
 
       dataPM = value.data['data']['category'];
       dataPA = value.data['data']['association'];
       titleP = value.data['data']['title'];
-       image_pathP = value.data['data']['image_path'];
-
-        log('${image_pathP}', name: "image_pathP");
-        log('${titleP}', name: "titleP");
-
+      image_pathP = value.data['data']['image_path'];
       descriptionP = value.data['data']['description'];
       requireAmountP = value.data['data']['require_amount'];
       receivedAmountP = value.data['data']['received_amount'];
+      
       dataPM.forEach((element) {
         ProjectCategoryM projectCategoryM = ProjectCategoryM.fromJson(element);
-        log('${element}', name: "element");
         projrctCM.add(projectCategoryM);
       });
 
-         List<dynamic> imagesmodell = value.data['data']['projects_paths'];
+      List<dynamic> imagesmodell = value.data['data']['projects_paths'];
       imagesmodell.forEach((element) {
         ImagesModel imagesModel = ImagesModel.fromJson(element);
-        log('${element}', name: "element");
         imagesmodelP.add(imagesModel);
       });
 
       dataPA.forEach((element) {
         ProjectAssociationM projectAssociationM =
             ProjectAssociationM.fromJson(element);
-        log('${element}', name: "element");
+        // log('${element}', name: "element");
         projrctAM.add(projectAssociationM);
       });
 
@@ -183,7 +182,80 @@ class HomeCubit extends Cubit<HomeStates> {
       print(error.toString());
       emit(HomeErrorCategoriesState());
     });
-  }}
+  }
 
 
 
+  void getProfileData() {
+    emit(ProfileLoadingState());
+    DioHelper.getData(
+      url: 'profile',
+      token: token,
+    ).then((value) {
+      profile_name = '';
+      profile_email = '';
+      old_password = '';
+
+      profile_name = value.data['data']['name'];
+      profile_email = value.data['data']['email'];
+            old_password = value.data['data']['password'];
+
+      log('${profile_name}', name: "name");
+      log('${profile_email}', name: "email");
+            log('${old_password}', name: "password");
+
+
+      emit(ProfileSuccessState());
+    }).catchError((error) {
+      emit(ProfileErrorState());
+      print(error.toString());
+    });
+  }
+
+  List<ProjectsCModel> projectcList = [];
+  List<ProjectsPModel> projectpList = [];
+
+
+void getProjectsCompData() {
+    emit(LoadingProjectsCompState());
+    DioHelper.getData(
+      url: 'completed',
+      token: token,
+    ).then((value) {
+
+      List<dynamic> dataprojectc = value.data['data']['projects_completed'];
+      dataprojectc.forEach((element) {
+        ProjectsCModel projectsCModel = ProjectsCModel.fromJson(element);
+                    log('${element}', name: "element0");
+
+        projectcList.add(projectsCModel);
+      });
+
+      List<dynamic> dataprojectp = value.data['data']['projects_completed_partial'];
+      dataprojectp.forEach((element) {
+        ProjectsPModel projectsPModel = ProjectsPModel.fromJson(element);
+
+                    log('${element}', name: "element2");
+
+        projectpList.add(projectsPModel);
+      });
+
+      emit(SuccessProjectsCompState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ErrorProjectsCompState());
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+}

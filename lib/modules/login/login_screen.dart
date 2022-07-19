@@ -32,6 +32,7 @@ class LoginScreen extends StatelessWidget {
                       key: 'token', value: state.lgoinModel.data!.token)
                   .then((value) {
                 token = state.lgoinModel.data!.token;
+                print(token);
                 navigateAndFinish(context, HomeLayout());
               });
               showToast(

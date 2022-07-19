@@ -7,7 +7,7 @@ const PAYMENT ='payments/create';
 
 const baseUrl ='$ip:5669/api/';
 const baseUrlImage ='$ip:5669/';
-const ip = 'http://158.140.115.143' ;
+const ip = 'http://188.161.171.168' ;
 
 
 
