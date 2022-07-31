@@ -1,6 +1,7 @@
 import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
 import 'package:donations_app/models/category/categoriesDetailsModel.dart';
+import 'package:donations_app/modules/project/project_convert.dart';
 import 'package:donations_app/modules/project/project_screen.dart';
 import 'package:donations_app/modules/search/search_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
@@ -10,9 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class CategoryProjectsScreen extends StatelessWidget {
+class CategoryProjectsConvert extends StatelessWidget {
   final String? categoryName;
-  CategoryProjectsScreen(this.categoryName);
+  CategoryProjectsConvert(this.categoryName);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
@@ -24,11 +25,11 @@ class CategoryProjectsScreen extends StatelessWidget {
               '$categoryName',
             ),
             actions: [
-              IconButton(
-                  onPressed: () {
-                    navigateTo(context, SearchScreen());
-                  },
-                  icon: Icon(Icons.search)),
+              // IconButton(
+              //     onPressed: () {
+              //       navigateTo(context, SearchScreen());
+              //     },
+              //     icon: Icon(Icons.search)),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -94,7 +95,7 @@ class CategoryProjectsScreen extends StatelessWidget {
       onTap: () {
         HomeCubit.get(context).getProjectData(model.id);
         print(model.title);
-        navigateTo(context, ProjectsDetails());
+        navigateTo(context, ProjectsConvert());
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

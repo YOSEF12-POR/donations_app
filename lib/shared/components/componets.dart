@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:donations_app/layout/cubit/cubit.dart';
+import 'package:donations_app/modules/cateogries/cateogries_screen.dart';
 import 'package:donations_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -62,7 +63,7 @@ Widget myDivider() => Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
         width: double.infinity,
-        height: 1.0,
+        height: 0.5,
         color: Colors.grey,
       ),
     );
@@ -254,3 +255,6 @@ Widget buildListfCases(model,context , {bool isoldprice = true, } ) =>  Padding(
     Widget separator (double wide,double high){
   return SizedBox(width: wide,height: high,);
 }
+
+
+

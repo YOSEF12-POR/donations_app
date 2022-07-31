@@ -115,7 +115,7 @@ class SearchScreen extends StatelessWidget {
                     children: [           
                       Image(
                         image: NetworkImage(
-                             "${baseUrlImage}${model.image_path}"),
+                            "https://moderndiplomacy.eu/wp-content/uploads/2018/04/treeplanting.jpg"),
                         width: double.infinity,
                         height: 210,
                         fit: BoxFit.cover,

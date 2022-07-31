@@ -3,6 +3,7 @@ import 'package:donations_app/models/login_model/login_model.dart';
 abstract class LoginStates{}
 class  LoginInitialStates extends LoginStates{}
 class  LoginLoadingStates extends LoginStates{}
+
 class  LoginSuccessStates extends LoginStates
 {
   late final LoginModel lgoinModel;
@@ -15,3 +16,11 @@ class  LoginErrorStates extends LoginStates{
   
 }
 class  ChangePasswordVisibilityStates extends LoginStates{}
+
+
+
+class NotificationsState extends LoginStates{}
+class SuccessNotificationsState extends LoginStates{
+
+}
+class ErrorNotificationsState extends LoginStates{}

@@ -1,4 +1,3 @@
-import 'package:donations_app/models/favorites/change_favorites_model.dart';
 import 'package:donations_app/models/login_model/login_model.dart';
 
 abstract class HomeStates{}
@@ -12,18 +11,17 @@ class HomeErrorHomeDataState extends HomeStates{}
 class HomeSuccessCategoriesState extends HomeStates{}
 class HomeErrorCategoriesState extends HomeStates{}
 
-class HomeChangeFavoritesState extends HomeStates{}
-class HomeChangeSuccessFavoritesState extends HomeStates{
-  final ChangeFavoritesModel model;
+// class HomeChangeNotificationsState extends HomeStates{}
+// class HomeChangeSuccessNotificationsState extends HomeStates{
+//   final ChangeNotificationsModel model;
+//   HomeChangeSuccessNotificationsState(this.model);
+// }
+// class HomeChangeErrorNotificationsState extends HomeStates{}
 
-  HomeChangeSuccessFavoritesState(this.model);
-}
-class HomeChangeErrorFavoritesState extends HomeStates{}
 
-
-class HomeLoadingGetFavoritesState extends HomeStates{}
-class HomeSuccessGetFavoritesState extends HomeStates{}
-class HomeErrorGetFavoritesState extends HomeStates{}
+// class HomeLoadingGetFavoritesState extends HomeStates{}
+// class HomeSuccessGetFavoritesState extends HomeStates{}
+// class HomeErrorGetFavoritesState extends HomeStates{}
 
 class HomeLoadingUserDataState extends HomeStates{}
 class HomeSuccessUserDataState extends HomeStates{
@@ -60,7 +58,10 @@ class PaymentErrorState extends HomeStates{
 }
 
 class ProfileLoadingState extends HomeStates{}
-class ProfileSuccessState extends HomeStates {}
+class ProfileSuccessState extends HomeStates {
+  late final LoginModel loginModel;
+  ProfileSuccessState (this.loginModel);
+}
 class ProfileErrorState extends HomeStates{}
 
 
@@ -81,3 +82,9 @@ class UserDataErrorState extends HomeStates{}
 class LoadingProjectsCompState extends HomeStates{}
 class SuccessProjectsCompState extends HomeStates{}
 class ErrorProjectsCompState extends HomeStates{}
+
+
+
+class LoadingNotificationsData extends HomeStates{}
+class SuccessNotificationsData extends HomeStates{}
+class ErrorNotificationsData extends HomeStates{}

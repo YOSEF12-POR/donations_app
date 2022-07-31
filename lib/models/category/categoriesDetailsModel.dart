@@ -24,15 +24,17 @@ class Projects {
   dynamic? categoryId;
   String? description;
   String? title;
-dynamic? require_amount;
-   dynamic?   received_amount;
-   
+  dynamic? require_amount;
+  dynamic? received_amount;
+  String? image_path;
+  
   Projects.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     categoryId = json['category_id'];
     description = json['description'];
     title = json['title'];
-      require_amount = json['require_amount'];
+    require_amount = json['require_amount'];
     received_amount = json['received_amount'];
+    image_path = json['image_path'];
   }
 }

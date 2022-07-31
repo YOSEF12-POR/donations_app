@@ -1,22 +1,23 @@
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
+import 'package:donations_app/layout/home.dart';
 import 'package:donations_app/models/home_model/projects_model.dart';
+import 'package:donations_app/modules/home_screen.dart';
+import 'package:donations_app/modules/notifications/notifications_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
 import 'package:donations_app/shared/network/end_points.dart';
 import 'package:donations_app/shared/styles/colors.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class ProjectsDetails extends StatefulWidget {
+class ProjectsConvert extends StatefulWidget {
   @override
-  State<ProjectsDetails> createState() => _ProjectsDetailsState();
+  State<ProjectsConvert> createState() => _ProjectsConvertState();
 }
 
-class _ProjectsDetailsState extends State<ProjectsDetails> {
+class _ProjectsConvertState extends State<ProjectsConvert> {
   bool islast = false;
   var Pagecontrolar = PageController();
 
@@ -340,10 +341,11 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                           height: 50,
                           child: FlatButton(
                             onPressed: () {
-                              
+                                      navigateAndFinish(context, HomeLayout());
+
                             },
                             child: Text(
-                              'تبرع',
+                              'تحويل',
                               style: TextStyle(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.bold,

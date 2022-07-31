@@ -1,5 +1,6 @@
 import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
+import 'package:donations_app/modules/notifications/notifications_screen.dart';
 import 'package:donations_app/modules/search/search_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
 import 'package:flutter/material.dart';
@@ -15,23 +16,22 @@ class HomeLayout extends StatelessWidget {
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
         return Scaffold(
-          
           appBar: AppBar(
-            title: Text('معاً نحيا',),
+            title: Text(
+              'معاً نحيا',
+            ),
             actions: [
               IconButton(
                   onPressed: () {
-                    navigateTo(context, SearchScreen());
+                    navigateTo(context, NotificationScreen());
                   },
-                  icon: Icon(Icons.search)),
+                  icon: Icon(Icons.notifications_on_outlined)),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  
-                  height: 50,
-                  width: 50,
-                  child: Image.asset('assets/images/logo11.png')
-                  ),
+                    height: 50,
+                    width: 50,
+                    child: Image.asset('assets/images/logo11.png')),
               ),
             ],
           ),
@@ -42,11 +42,13 @@ class HomeLayout extends StatelessWidget {
             },
             currentIndex: cubit.currentIndex,
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'الرئيسية'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.apps), label: 'الأقسام'),
+                  icon: Icon(Icons.home), label: 'الرئيسية'),
+              BottomNavigationBarItem(icon: Icon(Icons.apps), label: 'الأقسام'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.download_done_rounded), label: 'المشاريع '),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.search_rounded), label: 'البحث '),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: 'الإعدادت'),
             ],

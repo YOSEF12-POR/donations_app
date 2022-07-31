@@ -12,46 +12,28 @@ class SearchCubit extends Cubit<SearchStates> {
 
   static SearchCubit get(context) => BlocProvider.of(context);
   List<ProjectS> projrctSM = [];
-  
+
   SearchModel? model;
-    int? associationId;
+  int? associationId;
+  List<dynamic> dataSM = [];
 
-// void getCategoriesDetailData(int? categoryID) {
-//     emit(CategoryDetailsLoadingState());
-//     DioHelper.getData(
-//       url: 'categories/$categoryID',
-//     ).then((value) {
-//       projectsList.length = 0;
-//       data.length = 0;
-
-//       data = value.data['data'];
-//       data.forEach((element) {
-//         Projects project = Projects.fromJson(element);
-//         projectsList.add(project);
-//       });
-
-//       emit(CategoryDetailsSuccessState());
-//     }).catchError((error) {
-//       emit(CategoryDetailsErrorState());
-//       print(error.toString());
-//     });
-//   }
-List<dynamic> dataSM = [];
+  
   void search(String text) {
-     dataSM.length = 0;
-         projrctSM.length = 0;
+    dataSM.length = 0;
+    projrctSM.length = 0;
 
     emit(SearchLoadingStates());
 
-    DioHelper.postData(url: 'projects/search',
-    token: token,
-     data: {'search':'$text'}).then((value) {
-      log('${value.data['data']['association_id']}' , name: "1");
-      log('${value.data['data']['association_id']}' , name: "2");
+    DioHelper.postData(
+        url: 'projects/search',
+        token: token,
+        data: {'search': '$text'}).then((value) {
+      log('${value.data['data']['association_id']}', name: "1");
+      log('${value.data['data']['association_id']}', name: "2");
 
-List<dynamic> dataSM = value.data['data']['data'];
+      List<dynamic> dataSM = value.data['data']['data'];
       // dataSM = value.data['data'];
-              log('${value.data['data']['data']}', name: "dataSM");
+      log('${value.data['data']['data']}', name: "dataSM");
 
       dataSM.forEach((element) {
         ProjectS projectsS = ProjectS.fromJson(element);
@@ -59,10 +41,8 @@ List<dynamic> dataSM = value.data['data']['data'];
         projrctSM.add(projectsS);
       });
 
-
       emit(SearchSuccessStates());
     }).catchError((error) {
-
       print(error.toString());
       emit(SearchErrorStates());
     });

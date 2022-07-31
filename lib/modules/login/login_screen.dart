@@ -7,6 +7,7 @@ import 'package:donations_app/shared/components/ap_drawer.dart';
 import 'package:donations_app/shared/components/componets.dart';
 import 'package:donations_app/shared/components/constants.dart';
 import 'package:donations_app/shared/network/local/cache_helper.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,19 +23,66 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is LoginSuccessStates) {
             if (state.lgoinModel.status!) {
               print(state.lgoinModel.message);
               print(state.lgoinModel.data!.token);
 
+              print('iduser == ${state.lgoinModel.data!.id}');
+
+              CacheHelper.saveData(
+                      key: 'iduser', value: state.lgoinModel.data!.id)
+                  .then((value) {
+                iduser = state.lgoinModel.data!.id;
+              });
+              CacheHelper.saveData(
+                      key: 'namepro', value: state.lgoinModel.data!.name)
+                  .then((value) {
+                namepro = state.lgoinModel.data!.name;
+              });
+              CacheHelper.saveData(
+                      key: 'emailpro', value: state.lgoinModel.data!.email)
+                  .then((value) {
+                emailpro = state.lgoinModel.data!.email;
+              });
+
               CacheHelper.saveData(
                       key: 'token', value: state.lgoinModel.data!.token)
-                  .then((value) {
+                  .then((value) async {
                 token = state.lgoinModel.data!.token;
                 print(token);
+
+                if (tor != null) {
+                  showToast(text: ' موجود  ', state: ToastStates.SUCCESS);
+                  LoginCubit.get(context).ChangeNotificationData(tor);
+                } else {
+                  CacheHelper.saveData(
+                          key: 'tor',
+                          value: await FirebaseMessaging.instance.getToken())
+                      .then((value) async {
+                    tor = await FirebaseMessaging.instance.getToken();
+                    // print(tor);
+                  });
+                  showToast(text: 'مش موجود  ', state: ToastStates.ERROR);
+                  String torc = CacheHelper.getData(key: 'tor');
+
+                  LoginCubit.get(context).ChangeNotificationData(torc);
+                }
                 navigateAndFinish(context, HomeLayout());
               });
+
+              // CacheHelper.saveData(
+              //         key: 'tokenfcm', value: await FirebaseMessaging.instance.getToken())
+              //     .then((value) async{
+              //   tokenfcm = await FirebaseMessaging.instance.getToken();
+
+              //   LoginCubit.get(context).ChangeNotificationData(tokenfcm!);
+              //         print( 'tokenfcm  -- ${tokenfcm}');
+
+              //   // navigateAndFinish(context, HomeLayout());
+              // });
+
               showToast(
                   text: state.lgoinModel.message!, state: ToastStates.SUCCESS);
             } else {
@@ -59,9 +107,9 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: Container(
-                  height: 250,
-                  child: Image.asset('assets/images/logo11.png'),
-                ),
+                            height: 250,
+                            child: Image.asset('assets/images/logo11.png'),
+                          ),
                         ),
                         Text(
                           'تسجيل الدخول',
@@ -77,6 +125,7 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 20.0,
                         ),
+
                         defaultFormFiled(
                             controller: emailController,
                             type: TextInputType.emailAddress,
@@ -91,18 +140,18 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 15.0,
                         ),
-                        SizedBox(height: 15.0,),
-                        defaultFormFiled(
-                            controller: device_nameController,
-                            type: TextInputType.text,
-                            validate: (value) {
-                              if (value.isEmpty) {
-                                return 'plese enter your device_name';
-                              }
-                              return null;
-                            },
-                            label: 'device_name',
-                            prefix: Icons.nat),
+                        // SizedBox(height: 15.0,),
+                        // defaultFormFiled(
+                        //     controller: device_nameController,
+                        //     type: TextInputType.text,
+                        //     validate: (value) {
+                        //       if (value.isEmpty) {
+                        //         return 'plese enter your device_name';
+                        //       }
+                        //       return null;
+                        //     },
+                        //     label: 'device_name',
+                        //     prefix: Icons.nat),
                         SizedBox(
                           height: 15.0,
                         ),
@@ -113,11 +162,10 @@ class LoginScreen extends StatelessWidget {
                             onSubmitt: (value) {
                               if (formKey.currentState!.validate()) {
                                 LoginCubit.get(context).userLogin(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                    device_name: device_nameController.text,
-                                    
-                                    );
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  device_name: device_nameController.text,
+                                );
                               }
                             },
                             isPassword: LoginCubit.get(context).isPassword,
@@ -143,14 +191,12 @@ class LoginScreen extends StatelessWidget {
                               function: () {
                                 if (formKey.currentState!.validate()) {
                                   LoginCubit.get(context).userLogin(
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                      device_name: device_nameController.text,
-                                      
-                                      );
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                    device_name: device_nameController.text,
+                                  );
                                 }
-                              }
-                              ),
+                              }),
                           fallback: (context) =>
                               Center(child: CircularProgressIndicator()),
                         ),

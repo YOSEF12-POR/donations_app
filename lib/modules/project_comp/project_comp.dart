@@ -254,44 +254,44 @@ Widget buildProjectsC(ProjectsCModel model, context) => InkWell(
                           ],
                         ),
                       ),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              showToast(
-                                  text: 'مشاركة', state: ToastStates.WARNING);
-                            },
-                            icon: CircleAvatar(
-                              radius: 30.0,
-                              backgroundColor: Colors.grey,
-                              child: Icon(
-                                Icons.share_sharp,
-                                size: 22.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          Spacer(),
-                          IconButton(
-                            onPressed: () {
-                              // HomeCubit.get(context).changeFavorites(model.id);
-                            },
-                            icon: CircleAvatar(
-                              radius: 30.0,
-                              // backgroundColor:
-                              //     HomeCubit.get(context).favorites[model.id]!
-                              //         ? defaultColor
-                              //         : Colors.grey,
-                              child: Icon(
-                                Icons.wallet_giftcard_rounded,
-                                size: 22.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     IconButton(
+                      //       onPressed: () {
+                      //         showToast(
+                      //             text: 'مشاركة', state: ToastStates.WARNING);
+                      //       },
+                      //       icon: CircleAvatar(
+                      //         radius: 30.0,
+                      //         backgroundColor: Colors.grey,
+                      //         child: Icon(
+                      //           Icons.share_sharp,
+                      //           size: 22.0,
+                      //           color: Colors.white,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     // Spacer(),
+                      //     // Spacer(),
+                      //     // IconButton(
+                      //     //   onPressed: () {
+                      //     //     // HomeCubit.get(context).changeFavorites(model.id);
+                      //     //   },
+                      //     //   icon: CircleAvatar(
+                      //     //     radius: 30.0,
+                      //     //     // backgroundColor:
+                      //     //     //     HomeCubit.get(context).favorites[model.id]!
+                      //     //     //         ? defaultColor
+                      //     //     //         : Colors.grey,
+                      //     //     child: Icon(
+                      //     //       Icons.wallet_giftcard_rounded,
+                      //     //       size: 22.0,
+                      //     //       color: Colors.white,
+                      //     //     ),
+                      //     //   ),
+                      //     // ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
@@ -469,40 +469,40 @@ Widget buildProjectsC(ProjectsCModel model, context) => InkWell(
                       ),
                       Row(
                         children: [
-                          IconButton(
-                            onPressed: () {
-                              showToast(
-                                  text: 'مشاركة', state: ToastStates.WARNING);
-                            },
-                            icon: CircleAvatar(
-                              radius: 30.0,
-                              backgroundColor: Colors.grey,
-                              child: Icon(
-                                Icons.share_sharp,
-                                size: 22.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          Spacer(),
-                          IconButton(
-                            onPressed: () {
-                              // HomeCubit.get(context).changeFavorites(model.id);
-                            },
-                            icon: CircleAvatar(
-                              radius: 30.0,
-                              // backgroundColor:
-                              //     HomeCubit.get(context).favorites[model.id]!
-                              //         ? defaultColor
-                              //         : Colors.grey,
-                              child: Icon(
-                                Icons.wallet_giftcard_rounded,
-                                size: 22.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     showToast(
+                          //         text: 'مشاركة', state: ToastStates.WARNING);
+                          //   },
+                          //   icon: CircleAvatar(
+                          //     radius: 30.0,
+                          //     backgroundColor: Colors.grey,
+                          //     child: Icon(
+                          //       Icons.share_sharp,
+                          //       size: 22.0,
+                          //       color: Colors.white,
+                          //     ),
+                          //   ),
+                          // ),
+                          // Spacer(),
+                          // Spacer(),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     // HomeCubit.get(context).changeFavorites(model.id);
+                          //   },
+                          //   icon: CircleAvatar(
+                          //     radius: 30.0,
+                          //     // backgroundColor:
+                          //     //     HomeCubit.get(context).favorites[model.id]!
+                          //     //         ? defaultColor
+                          //     //         : Colors.grey,
+                          //     child: Icon(
+                          //       Icons.wallet_giftcard_rounded,
+                          //       size: 22.0,
+                          //       color: Colors.white,
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ],

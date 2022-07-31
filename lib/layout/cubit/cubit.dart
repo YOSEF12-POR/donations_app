@@ -13,6 +13,7 @@ import 'package:donations_app/models/projectcomp_mode/projectcomp_model.dart';
 import 'package:donations_app/modules/home_screen.dart';
 import 'package:donations_app/modules/cateogries/cateogries_screen.dart';
 import 'package:donations_app/modules/project_comp/project_comp.dart';
+import 'package:donations_app/modules/search/search_screen.dart';
 import 'package:donations_app/modules/settings/settings_screen.dart';
 import 'package:donations_app/shared/components/constants.dart';
 import 'package:donations_app/shared/network/end_points.dart';
@@ -22,6 +23,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:convert';
 
 import 'package:sqflite/sql.dart';
+
+import '../../models/notifications_model/notifications_model.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
@@ -47,13 +50,14 @@ class HomeCubit extends Cubit<HomeStates> {
   int? sum_num_beneficiaries = 0;
 
   String? profile_name = '';
-  String? profile_email= '';
-  String? old_password= '';
+  String? profile_email = '';
+  String? old_password = '';
 
   List<Widget> bottomScreens = [
     HomeScreen(),
     CateogriesScreen(),
     ProjectComp(),
+    SearchScreen(),
     SettingsScreen(),
   ];
 
@@ -71,7 +75,7 @@ class HomeCubit extends Cubit<HomeStates> {
       count_project = value.data['data']['count_project'];
       sum_received_amount = value.data['data']['sum_received_amount'];
       sum_num_beneficiaries = value.data['data']['sum_num_beneficiaries'];
-
+      number = count_project;
       List<dynamic> dataHome = value.data['data']['projects'];
       dataHome.forEach((element) {
         ProjectsModel projectsHome = ProjectsModel.fromJson(element);
@@ -122,7 +126,7 @@ class HomeCubit extends Cubit<HomeStates> {
       descriptionP = value.data['data']['description'];
       requireAmountP = value.data['data']['require_amount'];
       receivedAmountP = value.data['data']['received_amount'];
-      
+
       dataPM.forEach((element) {
         ProjectCategoryM projectCategoryM = ProjectCategoryM.fromJson(element);
         projrctCM.add(projectCategoryM);
@@ -184,8 +188,40 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
+  // NotificationsDetailModel? notificationsDetailModel;
+
+ List<Notifications> notificaytionsList = [];
+  List<dynamic> dataN = [];
+  void getNotificationsData() {
+    emit(LoadingNotificationsData());
+    DioHelper.getData(
+      url: 'notifications',
+      token: token,
+    ).then((value) {
+      notificaytionsList.length = 0;
+      dataN.length = 0;
 
 
+
+      dataN = value.data['data'];
+        dataN.forEach((element) {
+        Notifications notifications = Notifications.fromJson(element);
+        log('${notifications}', name: "notifications");
+
+        notificaytionsList.add(notifications);
+      });
+
+
+
+
+      emit(SuccessNotificationsData());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ErrorNotificationsData());
+    });
+  }
+
+  late LoginModel loginModel;
   void getProfileData() {
     emit(ProfileLoadingState());
     DioHelper.getData(
@@ -198,14 +234,16 @@ class HomeCubit extends Cubit<HomeStates> {
 
       profile_name = value.data['data']['name'];
       profile_email = value.data['data']['email'];
-            old_password = value.data['data']['password'];
+      old_password = value.data['data']['password'];
 
       log('${profile_name}', name: "name");
       log('${profile_email}', name: "email");
-            log('${old_password}', name: "password");
+      log('${old_password}', name: "password");
 
+      loginModel = LoginModel.fromJson(value.data);
+// log('${loginModel.data!.name}', name: "name");
 
-      emit(ProfileSuccessState());
+      emit(ProfileSuccessState(loginModel));
     }).catchError((error) {
       emit(ProfileErrorState());
       print(error.toString());
@@ -215,27 +253,26 @@ class HomeCubit extends Cubit<HomeStates> {
   List<ProjectsCModel> projectcList = [];
   List<ProjectsPModel> projectpList = [];
 
-
-void getProjectsCompData() {
+  void getProjectsCompData() {
     emit(LoadingProjectsCompState());
     DioHelper.getData(
       url: 'completed',
       token: token,
     ).then((value) {
-
       List<dynamic> dataprojectc = value.data['data']['projects_completed'];
       dataprojectc.forEach((element) {
         ProjectsCModel projectsCModel = ProjectsCModel.fromJson(element);
-                    log('${element}', name: "element0");
+        // log('${element}', name: "element0");
 
         projectcList.add(projectsCModel);
       });
 
-      List<dynamic> dataprojectp = value.data['data']['projects_completed_partial'];
+      List<dynamic> dataprojectp =
+          value.data['data']['projects_completed_partial'];
       dataprojectp.forEach((element) {
         ProjectsPModel projectsPModel = ProjectsPModel.fromJson(element);
 
-                    log('${element}', name: "element2");
+        // log('${element}', name: "element2");
 
         projectpList.add(projectsPModel);
       });
@@ -246,16 +283,4 @@ void getProjectsCompData() {
       emit(ErrorProjectsCompState());
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-
 }

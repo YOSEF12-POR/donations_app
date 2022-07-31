@@ -1,4 +1,5 @@
 import 'package:donations_app/modules/login/login_screen.dart';
+import 'package:donations_app/modules/welcome/welcome_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
 import 'package:donations_app/shared/network/local/cache_helper.dart';
 import 'package:donations_app/shared/styles/colors.dart';
@@ -26,17 +27,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   List<BordingModel> boarding = [
     BordingModel(
-        image: 'assets/images/onboard1.jpg',
-        title: 'Titel Scrren1',
-        body: 'Body Screen 1'),
+        image: 'assets/images/on1.png',
+        title: 'المساعدة المناسبة في الوقت المناسب',
+        body: 'ان الهدف الرئيسي من التطبيق مساعدة المحتاجين والفقراء والمرضى'),
     BordingModel(
-        image: 'assets/images/onboard2.jpg',
-        title: 'Titel Scrren2',
-        body: 'Body Screen 2'),
+        image: 'assets/images/on2.png',
+        title: 'مراقبة النظام',
+        body: 'يحتوي التطبيق على نظام للمراقبة التبرعات ويتم متابعته من هيئة إشرافية'),
     BordingModel(
-        image: 'assets/images/onboard3.jpg',
-        title: 'Titel Scrren3',
-        body: 'Body Screen 3'),
+        image: 'assets/images/on3.png',
+        title: 'التبرع بأمان',
+        body: 'يمكنك التبرع والمساهمة بطرق أمنة'),
   ];
 
   bool isLast = false;
@@ -44,7 +45,7 @@ void submit(){
     CacheHelper.saveData(key:'onBoarding' , value:true ).then((value){
       if(value)
       {
-        navigateAndFinish(context,LoginScreen());
+        navigateAndFinish(context,WelcomeScreen());
       }
     });
 
@@ -58,7 +59,7 @@ void submit(){
               function: submit
                 
              ,
-              text: 'SKIP'),
+              text: 'تخطي'),
         ],
       ),
       body: Padding(
@@ -88,6 +89,7 @@ void submit(){
             ),
             Row(
               children: [
+                
                 SmoothPageIndicator(
                     controller: boardController,
                     effect: ExpandingDotsEffect(
@@ -95,7 +97,7 @@ void submit(){
                         activeDotColor: defaultColor,
                         dotHeight: 10,
                         dotWidth: 10,
-                        expansionFactor: 4,
+                        expansionFactor: 3,
                         spacing: 5.0),
                     count: boarding.length),
                 Spacer(),

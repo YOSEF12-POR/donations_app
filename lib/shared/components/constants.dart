@@ -5,6 +5,16 @@ import 'package:donations_app/shared/network/local/cache_helper.dart';
 void signOut(context)
 {
 
+CacheHelper.removeData(key: 'iduser').then((value) {
+          
+          });
+
+          CacheHelper.removeData(key: 'namepro').then((value) {
+          
+          });
+          CacheHelper.removeData(key: 'emailpro').then((value) {
+          
+          });
 
    CacheHelper.removeData(key: 'token').then((value) {
             if(value)
@@ -12,16 +22,9 @@ void signOut(context)
               navigateAndFinish(context, LoginScreen());
             }
           });
-             CacheHelper.removeData(key: 'pr_name').then((value) {
-            if(value)
-            {
-              navigateAndFinish(context, LoginScreen());
-            }
-          });
-     
-        CacheHelper.removeData(key: 'pr_email').then((value) {
+             
          
-          });
+        
      
      
           
@@ -36,6 +39,15 @@ void printFullText(String text){
 }
 
 String? token = '';
+var iduser ;
 
-String? pr_name = '';
-String? pr_email = '';
+String? tokenfcm ;
+
+
+String? tor = '';
+String? namepro = '';
+String? emailpro = '';
+
+int? number ;
+
+String? numbervisa = ''; 

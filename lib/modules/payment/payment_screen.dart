@@ -6,7 +6,9 @@ import 'package:webview_flutter/webview_flutter.dart';
 class PYMENTSCREEN extends StatefulWidget {
   final amountController;
   final project_id;
-  PYMENTSCREEN(this.amountController, this.project_id);
+    final iduser;
+
+  PYMENTSCREEN(this.amountController, this.project_id, this.iduser);
 
   @override
   State<PYMENTSCREEN> createState() => _PYMENTSCREENState();
@@ -21,7 +23,7 @@ class _PYMENTSCREENState extends State<PYMENTSCREEN> {
         onPageFinished: (page){},
         javascriptMode: JavascriptMode.unrestricted,
         
-        initialUrl: '$ip:5669/api/paymentsWithoutAuth/create/${widget.project_id}/${widget.amountController}',
+        initialUrl: '$ip:5669/api/paymentsWithoutAuth/create/${widget.project_id}/${widget.amountController}/${widget.iduser}',
         
       ),
       
