@@ -28,7 +28,7 @@ import 'package:splash_screen_view/SplashScreenView.dart';
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message ,) async {
   print(message.data.toString());
 
-  showToast(text: 'on background message', state: ToastStates.SUCCESS);
+  // showToast(text: 'on background message', state: ToastStates.SUCCESS);
 }
 
 void main() async {
@@ -94,6 +94,7 @@ class MyApp extends StatelessWidget {
                 ..getProfileData()
                 ..getProjectsCompData()
                 ..getNotificationsData()
+                ..getBasketData()
                 
                 
                 )

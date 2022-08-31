@@ -51,3 +51,10 @@ String? emailpro = '';
 int? number ;
 
 String? numbervisa = ''; 
+
+
+
+
+ var n;
+ var n1;
+ var n2;

@@ -33,7 +33,8 @@ class LoginCubit extends Cubit<LoginStates> {
     });
   }
 
-  late ChangeNotificationsModel changeNotificationsModel;
+  // late ChangeNotificationsModel changeNotificationsModel;
+  
   void ChangeNotificationData(String? tokenfcm) {
     emit(NotificationsState());
     DioHelper.postData(

@@ -88,3 +88,14 @@ class ErrorProjectsCompState extends HomeStates{}
 class LoadingNotificationsData extends HomeStates{}
 class SuccessNotificationsData extends HomeStates{}
 class ErrorNotificationsData extends HomeStates{}
+
+
+
+class LoadingSendNotificationsConvert extends HomeStates{}
+class SuccessSendNotificationsConvert extends HomeStates{}
+class ErrorSendNotificationsConvert extends HomeStates{}
+
+
+class LoadingGetBasketData extends HomeStates{}
+class SuccessGetBasketData extends HomeStates{}
+class ErrorGetBasketData extends HomeStates{}

@@ -49,13 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             // Image.asset('assets/images/no.png'),
-                            Text(
-                              'انْتَظِرْ قَليلاً!',
-                              style: TextStyle(
-                                fontSize: 45,
-                                fontFamily: 'Jannah',
-                              ),
-                            ),
+                            CircularProgressIndicator(),
                           ],
                         ),
                       ),
@@ -217,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               height: 5.0,
                                             ),
                                             Text(
-                                              'إجمالي التبرعات',
+                                              'عدد المشاريع المكتملة',
                                               style: TextStyle(
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.bold,
@@ -269,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               height: 5.0,
                                             ),
                                             Text(
-                                              'عدد المستفيدين',
+                                              'عدد المشاريع المفتوحة ',
                                               style: TextStyle(
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.bold,
@@ -321,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               height: 5.0,
                                             ),
                                             Text(
-                                              'عدد عمليات التبرع',
+                                              'إجمالي التبرعات',
                                               style: TextStyle(
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.bold,
@@ -560,19 +554,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         return null;
                                                       },
                                                       label: 'المبلغ',
-                                                      prefix: Icons.email),
+                                                      prefix: Icons.monetization_on_sharp),
                                                   SizedBox(
                                                     height: 15,
                                                   ),
-                                                  Text(
-                                                    'تنبيه',
-                                                    style: TextStyle(
-                                                      fontSize: 25,
-                                                      color: Colors.red,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                      '  اذا لم يتم اكمال  المبلغ المطلوب للمشروع و لم يصل حد التبرع المشروع الى 50%  سيتم تحويل  اموال المشروع الى مشروع اخر'),
+                                                  // Text(
+                                                  //   'تنبيه',
+                                                  //   style: TextStyle(
+                                                  //     fontSize: 25,
+                                                  //     color: Colors.red,
+                                                  //   ),
+                                                  // ),
+                                                  // Text(
+                                                  //     '  اذا لم يتم اكمال  المبلغ المطلوب للمشروع و لم يصل حد التبرع المشروع الى 50%  سيتم تحويل  اموال المشروع الى مشروع اخر'),
                                                 ],
                                               ),
                                               actions: [

@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                 print(token);
 
                 if (tor != null) {
-                  showToast(text: ' موجود  ', state: ToastStates.SUCCESS);
+                  // showToast(text: ' موجود  ', state: ToastStates.SUCCESS);
                   LoginCubit.get(context).ChangeNotificationData(tor);
                 } else {
                   CacheHelper.saveData(
@@ -64,7 +64,7 @@ class LoginScreen extends StatelessWidget {
                     tor = await FirebaseMessaging.instance.getToken();
                     // print(tor);
                   });
-                  showToast(text: 'مش موجود  ', state: ToastStates.ERROR);
+                  // showToast(text: 'مش موجود  ', state: ToastStates.ERROR);
                   String torc = CacheHelper.getData(key: 'tor');
 
                   LoginCubit.get(context).ChangeNotificationData(torc);

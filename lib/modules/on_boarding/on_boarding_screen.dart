@@ -29,7 +29,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     BordingModel(
         image: 'assets/images/on1.png',
         title: 'المساعدة المناسبة في الوقت المناسب',
-        body: 'ان الهدف الرئيسي من التطبيق مساعدة المحتاجين والفقراء والمرضى'),
+        body: ' يوفر التطبيق العديد من فرص التبرع'),
     BordingModel(
         image: 'assets/images/on2.png',
         title: 'مراقبة النظام',

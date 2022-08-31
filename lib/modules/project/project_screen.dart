@@ -141,10 +141,8 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                     children: [
                       SizedBox(
                         child: Container(
-                          width: 300,
                           child: Text(
                             '${HomeCubit.get(context).titleP}',
-                            maxLines: 2,
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontSize: 20.0,

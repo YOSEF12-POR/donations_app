@@ -4,7 +4,9 @@ import 'package:donations_app/models/notifications_model/notifications_model.dar
 import 'package:donations_app/modules/cateogries/cateogries_convert.dart';
 import 'package:donations_app/modules/cateogries/cateogries_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
+import 'package:donations_app/shared/components/constants.dart';
 import 'package:donations_app/shared/network/end_points.dart';
+import 'package:donations_app/shared/network/local/cache_helper.dart';
 import 'package:donations_app/shared/styles/colors.dart';
 import 'package:donations_app/statistics/moneyback_screen.dart';
 import 'package:flutter/material.dart';
@@ -95,6 +97,16 @@ Widget buildProjectNot(Notifications model, context, index) => InkWell(
                           TextButton(
                             child: Text(' 1.تحويل المبلغ'),
                             onPressed: () {
+
+                                  CacheHelper.saveData(key: 'n', value: model.id)
+                                  .then((value) {
+                                    n=model.id!;
+                              });
+
+                               CacheHelper.saveData(key: 'n1', value: model.project_id)
+                                  .then((value) {
+                                    n1= model.project_id;
+                              });
                               navigateTo(context, CateogriesConvert());
                             },
                           ),
@@ -159,8 +171,7 @@ Widget buildProjectNot(Notifications model, context, index) => InkWell(
                     decoration: BoxDecoration(
                         shape: BoxShape.circle, color: Colors.green[50]),
                     child: Center(
-                      child: Text(
-                          '${HomeCubit.get(context).notificaytionsList.length - index}'),
+                      child: Image.asset('assets/images/logo11.png'),
                     )),
               ],
             ),

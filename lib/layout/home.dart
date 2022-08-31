@@ -1,5 +1,6 @@
 import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
+import 'package:donations_app/modules/basket/basket_screen.dart';
 import 'package:donations_app/modules/notifications/notifications_screen.dart';
 import 'package:donations_app/modules/search/search_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
@@ -21,11 +22,17 @@ class HomeLayout extends StatelessWidget {
               'معاً نحيا',
             ),
             actions: [
+                 IconButton(
+                  onPressed: () {
+                    navigateTo(context, SearchScreen());
+                  },
+                  icon: Icon(Icons.search)),
               IconButton(
                   onPressed: () {
                     navigateTo(context, NotificationScreen());
                   },
                   icon: Icon(Icons.notifications_on_outlined)),
+               
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -48,7 +55,7 @@ class HomeLayout extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: Icon(Icons.download_done_rounded), label: 'المشاريع '),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.search_rounded), label: 'البحث '),
+                  icon: Icon(Icons.business_center_outlined), label: 'تبرعاتي '),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: 'الإعدادت'),
             ],

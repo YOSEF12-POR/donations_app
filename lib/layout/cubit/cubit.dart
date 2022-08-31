@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:donations_app/layout/cubit/state.dart';
+import 'package:donations_app/models/basket/basket_model.dart';
 import 'package:donations_app/models/category/categoriesDetailsModel.dart';
 // as category;
 import 'package:donations_app/models/category/categories_model.dart';
@@ -10,6 +11,7 @@ import 'package:donations_app/models/home_model/home_model.dart';
 import 'package:donations_app/models/login_model/login_model.dart';
 import 'package:donations_app/models/profile_model/profile_model.dart';
 import 'package:donations_app/models/projectcomp_mode/projectcomp_model.dart';
+import 'package:donations_app/modules/basket/basket_screen.dart';
 import 'package:donations_app/modules/home_screen.dart';
 import 'package:donations_app/modules/cateogries/cateogries_screen.dart';
 import 'package:donations_app/modules/project_comp/project_comp.dart';
@@ -57,7 +59,7 @@ class HomeCubit extends Cubit<HomeStates> {
     HomeScreen(),
     CateogriesScreen(),
     ProjectComp(),
-    SearchScreen(),
+    BasketScreen(),
     SettingsScreen(),
   ];
 
@@ -72,9 +74,9 @@ class HomeCubit extends Cubit<HomeStates> {
       url: HOME,
       token: token,
     ).then((value) {
-      count_project = value.data['data']['count_project'];
-      sum_received_amount = value.data['data']['sum_received_amount'];
-      sum_num_beneficiaries = value.data['data']['sum_num_beneficiaries'];
+      count_project = value.data['data']['count_project_open'];
+      sum_received_amount = value.data['data']['count_project_completed'];
+      sum_num_beneficiaries = value.data['data']['sum_received_amount'];
       number = count_project;
       List<dynamic> dataHome = value.data['data']['projects'];
       dataHome.forEach((element) {
@@ -105,6 +107,7 @@ class HomeCubit extends Cubit<HomeStates> {
   int? requireAmountP;
   int? receivedAmountP;
   String? image_pathP;
+  int? idP;
 
   void getProjectData(int? id) {
     emit(ProjectLoadingState());
@@ -114,6 +117,8 @@ class HomeCubit extends Cubit<HomeStates> {
       projrctAM.length = 0;
       dataPA.length = 0;
       titleP = '';
+      idP = 0;
+
       descriptionP = '';
       requireAmountP = 0;
       receivedAmountP = 0;
@@ -126,6 +131,7 @@ class HomeCubit extends Cubit<HomeStates> {
       descriptionP = value.data['data']['description'];
       requireAmountP = value.data['data']['require_amount'];
       receivedAmountP = value.data['data']['received_amount'];
+      idP = value.data['data']['id'];
 
       dataPM.forEach((element) {
         ProjectCategoryM projectCategoryM = ProjectCategoryM.fromJson(element);
@@ -190,7 +196,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   // NotificationsDetailModel? notificationsDetailModel;
 
- List<Notifications> notificaytionsList = [];
+  List<Notifications> notificaytionsList = [];
   List<dynamic> dataN = [];
   void getNotificationsData() {
     emit(LoadingNotificationsData());
@@ -201,25 +207,73 @@ class HomeCubit extends Cubit<HomeStates> {
       notificaytionsList.length = 0;
       dataN.length = 0;
 
-
-
       dataN = value.data['data'];
-        dataN.forEach((element) {
+      dataN.forEach((element) {
         Notifications notifications = Notifications.fromJson(element);
-        log('${notifications}', name: "notifications");
+        // log('${notifications}', name: "notifications");
 
         notificaytionsList.add(notifications);
       });
-
-
-
-
       emit(SuccessNotificationsData());
     }).catchError((error) {
       print(error.toString());
       emit(ErrorNotificationsData());
     });
   }
+
+// class LoadingGetBasketData extends HomeStates{}
+// class SuccessGetBasketData extends HomeStates{}
+// class ErrorGetBasketData extends HomeStates{}
+
+List<BasketsData> basketList = [];
+  List<dynamic> dataB = [];
+      int? count_basket;
+
+  void getBasketData() {
+    emit(LoadingGetBasketData());
+    DioHelper.getData(
+      url: 'basket',
+      token: token,
+    ).then((value) {
+      basketList.length = 0;
+      dataB.length = 0;
+      count_basket = 0;
+      count_basket = value.data['count_basket'];
+
+      dataB = value.data['basket'];
+      dataB.forEach((element) {
+        BasketsData basketsData = BasketsData.fromJson(element);
+        log('${element}', name: "basketsData");
+        // log('${count_basket}', name: "count_basket");
+
+        basketList.add(basketsData);
+      });
+      emit(SuccessGetBasketData());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ErrorGetBasketData());
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   late LoginModel loginModel;
   void getProfileData() {
@@ -281,6 +335,27 @@ class HomeCubit extends Cubit<HomeStates> {
     }).catchError((error) {
       print(error.toString());
       emit(ErrorProjectsCompState());
+    });
+  }
+
+  void sendNotofictionsConvert(
+      int  id_notification, 
+      int previous_project_id, int new_project_id
+      ) {
+    emit(LoadingSendNotificationsConvert());
+
+    DioHelper.postData(url:'update_status', token: token, data: {
+      'id_notification': id_notification,
+      'previous_project_id': previous_project_id ,
+      'new_project_id': new_project_id ,
+    }).then((value) {
+
+      // print('${id_notification}');
+      
+      emit(SuccessSendNotificationsConvert());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ErrorSendNotificationsConvert());
     });
   }
 }

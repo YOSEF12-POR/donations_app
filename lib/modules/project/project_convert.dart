@@ -3,10 +3,13 @@ import 'package:donations_app/layout/cubit/cubit.dart';
 import 'package:donations_app/layout/cubit/state.dart';
 import 'package:donations_app/layout/home.dart';
 import 'package:donations_app/models/home_model/projects_model.dart';
+import 'package:donations_app/models/notifications_model/notifications_model.dart';
 import 'package:donations_app/modules/home_screen.dart';
 import 'package:donations_app/modules/notifications/notifications_screen.dart';
 import 'package:donations_app/shared/components/componets.dart';
+import 'package:donations_app/shared/components/constants.dart';
 import 'package:donations_app/shared/network/end_points.dart';
+import 'package:donations_app/shared/network/local/cache_helper.dart';
 import 'package:donations_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,6 +76,8 @@ class _ProjectsConvertState extends State<ProjectsConvert> {
                                                   .projrctAM[index],
                                               HomeCubit.get(context)
                                                   .imagesmodelP[index],
+                                              HomeCubit.get(context)
+                                                  .notificaytionsList[index],
                                               context)),
                               crossAxisSpacing: 1,
                               childAspectRatio: 0.4,
@@ -88,7 +93,7 @@ class _ProjectsConvertState extends State<ProjectsConvert> {
   }
 
   Widget projectItemBuilder(ProjectCategoryM modelC, ProjectAssociationM modelA,
-      ImagesModel modelI, context) {
+      ImagesModel modelI, Notifications modelN, context) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
@@ -341,8 +346,56 @@ class _ProjectsConvertState extends State<ProjectsConvert> {
                           height: 50,
                           child: FlatButton(
                             onPressed: () {
-                                      navigateAndFinish(context, HomeLayout());
+                          
 
+                              // CacheHelper.saveData(key: 'n2', value: HomeCubit.get(context).idP)
+                              //     .then((value) {
+                              // });
+                              // n = modelN.id!;
+
+                              // n1 = modelN.project_id;
+
+                              // n2 = HomeCubit.get(context).idP!;
+
+                              //                  CacheHelper.removeData(key: 'n').then((value) {
+
+                              // });
+                              // CacheHelper.removeData(key: 'n1').then((value) {
+
+                              // });
+                              // CacheHelper.removeData(key: 'n2').then((value) {
+
+                              // });
+
+                              n = CacheHelper.getData(key: 'n');
+
+                              n1 = CacheHelper.getData(key: 'n1');
+
+                              // n2 = CacheHelper.getData(key: 'n2');
+
+                              print('${n}');
+                              print('${n1}');
+                              print('${HomeCubit.get(context).idP!}');
+
+                              HomeCubit.get(context)
+                                  .sendNotofictionsConvert(n, n1, HomeCubit.get(context).idP!);
+                               print('*********************');
+
+                              CacheHelper.removeData(key: 'n').then((value) {
+
+                              });
+                              CacheHelper.removeData(key: 'n1').then((value) {
+
+                              });
+                              // CacheHelper.removeData(key: 'n2').then((value) {
+
+                              // });
+
+                              // print('${n}');
+                              // print('${n1}');
+                              // print('${n2}');
+
+                              navigateTo(context, HomeLayout());
                             },
                             child: Text(
                               'تحويل',
